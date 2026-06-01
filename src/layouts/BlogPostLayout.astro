@@ -1,0 +1,22 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const { frontmatter } = Astro.props;
+const { title, description, pubDate, lead } = frontmatter;
+const dateStr = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+<BaseLayout title={`${title} — The Geriatrician's Guide`} description={description}>
+  <div class="post-header">
+    <div class="post-header__inner">
+      <h1>{title}</h1>
+      <p class="byline"><strong>Michael D. Genualdi, MD</strong> &middot; {dateStr}</p>
+    </div>
+  </div>
+  <div class="rule-terra" style="height:2px"></div>
+  <div class="wrap section post-body">
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+    <p class="disclaimer"><em>This article is for general educational purposes only. It does not constitute medical advice and does not create a physician-patient relationship. Discuss all clinical decisions with your loved one&rsquo;s treating healthcare team.</em></p>
+  </div>
+</BaseLayout>

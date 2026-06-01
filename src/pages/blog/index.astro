@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const title = "Articles — The Geriatrician's Guide";
+const description = "Physician-written guidance on senior living decisions, memory care, and caring for an older loved one.";
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+---
+<BaseLayout title={title} description={description}>
+  <div class="wrap wrap--read section">
+    <div class="blog-head">
+      <h1>Articles</h1>
+      <p>Physician-written. Clinically reviewed. No facility money.</p>
+    </div>
+    <div class="article-list">
+      {posts.map((post) => {
+        const dateStr = new Date(post.data.pubDate).toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric',
+        });
+        return (
+          <article class="article-item">
+            <a class="article-title" href={`/blog/${post.slug}`}>{post.data.title}</a>
+            <p class="article-meta">Michael D. Genualdi, MD &middot; {dateStr}</p>
+            <p class="article-desc">{post.data.description}</p>
+          </article>
+        );
+      })}
+    </div>
+    <p class="disclaimer"><em>All articles are for educational purposes only and do not constitute medical advice.</em></p>
+  </div>
+</BaseLayout>

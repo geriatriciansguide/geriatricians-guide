@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "About — The Geriatrician's Guide";
+const description = "Michael D. Genualdi, MD is a Stanford-trained, board-certified geriatrician. The Geriatrician's Guide takes no money from senior living operators.";
+---
+<BaseLayout title={title} description={description}>
+  <div class="wrap section">
+
+    <!-- REPLACE author-placeholder.jpg WITH BLUE BLAZER PORTRAIT -->
+    <img class="about-photo" src="/images/author-placeholder.jpg" alt="Michael D. Genualdi, MD" />
+
+    <p class="credential">
+      <strong>Michael D. Genualdi, MD</strong>
+      Board-Certified &middot; Geriatrics &amp; Internal Medicine<br />
+      Stanford Residency &amp; Fellowship
+    </p>
+
+    <div class="bio" style="margin-top:36px">
+      <p>For most of my career I have practiced inside the buildings families tour with a knot in their stomach. As a medical director in assisted living and memory care, I rounded on the same hallways, signed the same orders, and sat in the same care conferences that decide how an older person actually lives day to day. That vantage point teaches you to read a community the way a clinician reads a chart &mdash; not by the lobby and the chandelier, but by the overnight staffing, the medication list, and what happens at 2 AM when someone falls.</p>
+      <p>I built The Geriatrician&rsquo;s Guide because there is a gap between what families need and what the system offers them. The people most families call first &mdash; placement services &mdash; are paid a commission by the very communities they recommend. That doesn&rsquo;t make them dishonest. It makes them salaried by the other side of the table. Families deserve the clinical questions a physician would ask, delivered by someone who isn&rsquo;t paid to steer the answer.</p>
+      <p>So here is the commitment that anchors everything published here: I do not accept commissions, referral fees, or sponsorships from senior living operators or placement services. Not now, not later. When I tell you what to ask on a tour, the only interest I&rsquo;m serving is your loved one &mdash; and the advocates around them who deserve to decide with confidence instead of guilt.</p>
+    </div>
+
+    <div class="indep-block">
+      <p>&ldquo;Dr. Genualdi does not accept commissions, referral fees, or sponsorships from senior living operators or placement services. This commitment is the foundation of everything published under The Geriatrician&rsquo;s Guide.&rdquo;</p>
+    </div>
+
+  </div>
+</BaseLayout>

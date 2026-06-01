@@ -1,0 +1,57 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const { title, description } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+
+    <!-- PLAUSIBLE SCRIPT TAG HERE -->
+
+    <!-- Netlify Identity: lets invite/login links open the /admin writing dashboard -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function () {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
+
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <Header />
+    <main class="page">
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      (function () {
+        var t = document.querySelector('.nav-toggle');
+        var n = document.querySelector('.site-nav');
+        if (t && n) {
+          t.addEventListener('click', function () {
+            var o = n.classList.toggle('open');
+            t.setAttribute('aria-expanded', o);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

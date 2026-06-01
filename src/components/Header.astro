@@ -1,0 +1,35 @@
+---
+const links = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Products', href: '/products' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+// Normalize current path (strip trailing slash) for active-link matching
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="site-header">
+  <div class="site-header__bar">
+    <a href="/" class="wordmark" aria-label="The Geriatrician&rsquo;s Guide — home">
+      <span class="wordmark__the">THE</span>
+      <span class="wordmark__name">Geriatrician&rsquo;s Guide</span>
+      <span class="wordmark__rule"></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+    </button>
+    <nav class="site-nav">
+      {links.map((l) => {
+        const active =
+          l.href === '/'
+            ? path === '/'
+            : path === l.href || path.startsWith(l.href + '/');
+        return (
+          <a href={l.href} aria-current={active ? 'page' : undefined}>{l.label}</a>
+        );
+      })}
+    </nav>
+  </div>
+  <div class="site-header__terra-rule"></div>
+</header>

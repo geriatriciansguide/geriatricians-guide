@@ -1,0 +1,71 @@
+# The Geriatrician's Guide — Decap CMS configuration
+# This file defines the writing dashboard at /admin.
+# Paths below are relative to the GitHub REPO ROOT (which is this astro-project folder).
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Commit straight to the live site. No draft/review queue — hit Publish and it goes live.
+publish_mode: simple
+
+# Where uploaded images are stored and how they are referenced in markdown.
+media_folder: "public/images"
+public_folder: "/images"
+
+# A clearer commit message in the GitHub history for every action.
+site_url: "https://www.geriatriciansguide.com"
+display_url: "https://www.geriatriciansguide.com"
+locale: "en"
+
+collections:
+  - name: "blog"
+    label: "Articles"
+    label_singular: "Article"
+    description: "Every article on the site. Click an article to edit it, or “New Article” to write one."
+    folder: "src/content/blog"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    # The markdown filename is taken from the URL slug you type below.
+    slug: "{{fields.slug}}"
+    # The list view: newest first, showing title + date.
+    sortable_fields: ["pubDate", "title"]
+    summary: "{{title}}  ·  {{pubDate}}"
+    fields:
+      - name: "title"
+        label: "Title"
+        widget: "string"
+        hint: "Sentence case. The headline as it appears on the page and in the browser tab."
+
+      - name: "slug"
+        label: "URL slug"
+        widget: "string"
+        hint: "The end of the web address: geriatriciansguide.com/blog/THIS-PART. Lowercase, words joined by hyphens."
+        pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "Lowercase letters, numbers, and single hyphens only — e.g. memory-care-staffing-question"]
+
+      - name: "pubDate"
+        label: "Publish date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+        hint: "The date shown in the byline."
+
+      - name: "description"
+        label: "Description"
+        widget: "text"
+        hint: "One sentence. Shows in search results, link previews, and the article list. Lead with a number when you can."
+
+      - name: "lead"
+        label: "Lead paragraph"
+        widget: "text"
+        required: false
+        hint: "Optional. The short italic intro that sits under the headline, set in the serif. Plain text — no formatting needed."
+
+      - name: "body"
+        label: "Article body"
+        widget: "markdown"
+        hint: "Write normally. Use the Heading-2 style for section headings (the “1. …”, “2. …” pattern). The byline and medical disclaimer are added automatically."
+        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
+        editor_components: []
