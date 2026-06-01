@@ -93,3 +93,4 @@ Search the codebase for these comments:
 Per the brief, `LeadMagnetForm.astro` ships with the Beehiiv embed slot only (no live form).
 Paste the Beehiiv embed where marked. The static HTML preview at the project root shows a
 styled stand-in input so reviewers can see the intended block; it is not wired to anything.
+"# geriatricians-guide" 
