@@ -4,7 +4,10 @@
    Never hardcode hex outside :root — use the variables.
    ============================================================ */
 
-@import url('fonts/fonts.css');
+/* Fonts are loaded via <link> to Google Fonts in src/layouts/BaseLayout.astro
+   (Lora 400/500/600 + italics, Source Sans 3 300/400/600). The self-hosted
+   fonts/fonts.css from the design system is NOT used here — don't re-add the
+   @import unless you also commit public/fonts/. */
 
 :root {
   /* ---- Brand palette (the only four brand colors) ---- */

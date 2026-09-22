@@ -2,7 +2,7 @@
   command = "npm run build"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# No SPA catch-all. This is a multi-page static build: Astro emits a real HTML
+# file per route, and a `/*` → /index.html 200 rewrite would serve the home page
+# (with a 200) for every mistyped URL instead of a proper 404.
+# Route-level redirects live in astro.config.mjs (/products, /is-it-time-tool).
