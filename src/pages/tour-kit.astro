@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "The Tour Day Kit — A Free Download · The Geriatrician's Guide";
+const description = "Four printable tools for the day you tour a senior living community — the Checklist, the Card, the Notes sheet, and the Community Scorecard. The questions a geriatrician asks, in your pocket.";
+---
+<BaseLayout title={title} description={description}>
+  <div class="wrap section tk" data-screen-label="Tour Day Kit landing">
+
+    <p class="eyebrow">Free Download</p>
+    <h1>The Tour Day Kit</h1>
+    <div class="tk__rule"></div>
+
+    <div class="tk__lede">
+      <p>A tour is a sales presentation. The lighting, the route, the fresh cookies &mdash; none of it is an accident.</p>
+    </div>
+    <p class="tk__body">The Tour Day Kit is how you walk in prepared to filter out the performance and retain the substance. Four printable tools that follow the shape of the day: one to study before you go, two to carry through the tour itself, and one to compare communities once you&rsquo;re done. The questions a geriatrician would ask, in your pocket &mdash; so you and your loved one feel confident about your decision.</p>
+
+    <p class="tk__pieces-label">What&rsquo;s in the Kit</p>
+    <div class="tk__pieces">
+      <div class="tk__piece tk__piece--terra">
+        <span class="tk__piece-num">1</span>
+        <div>
+          <div class="tk__piece-name">The Tour Day Checklist</div>
+          <p class="tk__piece-desc">The full version you prepare with. Every domain turned into specific things to look for and ask &mdash; with a sense of what a strong answer sounds like, and what a weak one signals. Read it before you schedule anything.</p>
+        </div>
+      </div>
+      <div class="tk__piece tk__piece--gold">
+        <span class="tk__piece-num">2</span>
+        <div>
+          <div class="tk__piece-name">The Tour Day Card</div>
+          <p class="tk__piece-desc">The pocket version of the Checklist, stripped to the questions themselves. Printed and carried, so you&rsquo;re not trying to hold all of it in your head while you're touring.</p>
+        </div>
+      </div>
+      <div class="tk__piece tk__piece--midnight">
+        <span class="tk__piece-num">3</span>
+        <div>
+          <div class="tk__piece-name">The Tour Notes</div>
+          <p class="tk__piece-desc">Where you write down what you see and hear, section by section, before one community blurs into the next. The Card asks the questions; the Notes sheet is where the answers land.</p>
+        </div>
+      </div>
+      <div class="tk__piece tk__piece--terra">
+        <span class="tk__piece-num">4</span>
+        <div>
+          <div class="tk__piece-name">The Community Scorecard</div>
+          <p class="tk__piece-desc">The comparison tool &mdash; a fresh one for each community, filled out shortly after your visit while your notes are still in hand. Score all seven criteria and lay your finalists side by side.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tk__form-wrap">
+      <div class="tk__form-rule"></div>
+      <div class="tk__form-inner">
+        <p class="tk__form-label">Get the free Tour Day Kit.</p>
+        <p class="tk__form-sub">Enter your email and you'll receive all four printable tools.<br />No spam, no placement calls. Unsubscribe anytime.</p>
+
+        <!-- Kit form 9942300 — tags the subscriber (tour-kit-lead) and fires the incentive
+             email with the four PDFs. On success the page routes to the thanks page. -->
+        <form class="email-form email-form--dark" id="tk-form" action="https://app.kit.com/forms/9942300/subscriptions" method="post">
+          <input type="email" name="email_address" placeholder="you@email.com" aria-label="Email address" required />
+          <button type="submit">Send me the Kit</button>
+        </form>
+        <p class="tk__fine">We never sell your personal information.</p>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  const f = document.getElementById('tk-form');
+  if (f) f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = f as HTMLFormElement;
+    const btn = form.querySelector('button') as HTMLButtonElement;
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then((r) => { if (!r.ok) throw 0; window.location.href = '/tour-kit/thanks'; })
+      .catch(() => form.submit());
+  });
+</script>
+
+<style>
+  .tk { max-width: 800px; }
+  .tk .eyebrow { font-size: 12.5px; letter-spacing: 0.18em; }
+  .tk h1 {
+    font-family: var(--font-serif); font-weight: 500;
+    font-size: clamp(44px, 8vw, 68px); line-height: 1.0; letter-spacing: -0.02em;
+    color: var(--ink); margin-top: 14px;
+  }
+  .tk__rule { width: 96px; height: var(--rule-terra); background: var(--terra); margin: 26px 0 0; }
+  .tk__lede p {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(20px, 2.6vw, 24px); line-height: 1.55; color: var(--ink);
+    margin-top: 28px; text-wrap: pretty;
+  }
+  .tk__body {
+    font-family: var(--font-sans); font-weight: 400; font-size: 17px; color: var(--ink);
+    line-height: 1.75; margin-top: 16px; text-wrap: pretty;
+  }
+  .tk__pieces-label {
+    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.16em; font-size: 13px; color: var(--terra);
+    display: flex; align-items: center; gap: 16px; margin: 28px 0 20px;
+  }
+  .tk__pieces-label::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
+  .tk__pieces { display: flex; flex-direction: column; gap: 16px; }
+  .tk__piece {
+    display: grid; grid-template-columns: 44px 1fr; gap: 22px; align-items: center;
+    background: var(--paper); border: 1px solid var(--hairline); border-left: 3px solid var(--golden);
+    border-radius: 0 var(--radius) var(--radius) 0; padding: 22px 26px;
+    box-shadow: var(--shadow-card); transition: box-shadow .18s ease;
+  }
+  .tk__piece--terra { border-left-color: var(--terra); background: var(--terra-tint); }
+  .tk__piece--gold { border-left-color: var(--golden); background: rgba(196,150,42,0.07); }
+  .tk__piece--midnight { border-left-color: var(--midnight); background: var(--midnight-tint); }
+  .tk__piece-num {
+    width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-weight: 500; font-size: 19px; color: var(--paper);
+  }
+  .tk__piece--terra .tk__piece-num { background: var(--terra); }
+  .tk__piece--gold .tk__piece-num { background: var(--golden); }
+  .tk__piece--midnight .tk__piece-num { background: var(--midnight); }
+  .tk__piece-name { font-family: var(--font-serif); font-weight: 500; font-size: 21px; color: var(--ink); letter-spacing: -0.01em; }
+  .tk__piece-desc { font-family: var(--font-sans); font-weight: 400; font-size: 15px; color: var(--muted); line-height: 1.7; margin-top: 6px; text-wrap: pretty; }
+  /* Form — signature device: Terracotta rule -> Midnight field -> Fog text */
+  .tk__form-wrap {
+    margin-top: 56px; border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.18);
+  }
+  .tk__form-rule { height: var(--rule-terra); background: var(--terra); }
+  .tk__form-inner { background: var(--midnight); padding: clamp(36px,5vw,52px) clamp(28px,5vw,52px); }
+  .tk__form-label { font-family: var(--font-serif); font-weight: 500; font-size: clamp(24px, 3vw, 30px); color: var(--on-dark); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .tk__form-sub { font-family: var(--font-sans); font-weight: 300; font-size: 16px; color: rgba(245,240,230,0.68); line-height: 1.6; margin-bottom: 26px; text-wrap: pretty; max-width: 480px; }
+  .tk__fine { font-family: var(--font-sans); font-weight: 300; font-size: 13px; color: rgba(245,240,230,0.5); margin-top: 10px; }
+  .tk-kit-placeholder {
+    border: 1px dashed rgba(245,240,230,0.2); border-radius: var(--radius); background: rgba(0,0,0,0.15);
+    padding: 14px 18px; margin-top: 24px; max-width: 480px;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 400; font-style: italic; color: rgba(245,240,230,0.55);
+  }
+  @media (max-width: 620px) {
+    .tk__piece { grid-template-columns: 44px 1fr; gap: 14px; }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+/* Cross-sell block for the free Tour Day Kit. The capture form lives only on
+   /tour-kit — one Kit pipeline, no duplicate embeds to keep in sync. */
+const { label } = Astro.props;
+---
+<section class="lead-magnet-block">
+  <div class="lead-magnet-block__inner">
+    {label && <p class="lm-label">{label}</p>}
+    <p class="lm-eyebrow">Free Download</p>
+    <h2 class="lm-headline">The Tour Day Kit</h2>
+    <p class="lm-sub">Four printable tools for the day you tour &mdash; the Checklist, the Card, the Notes sheet, and the Community Scorecard. The questions a geriatrician asks, in your pocket.</p>
+    <a class="btn btn--accent" href="/tour-kit">Get the free Tour Day Kit <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </div>
+</section>

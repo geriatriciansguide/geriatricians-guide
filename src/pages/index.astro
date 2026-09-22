@@ -10,21 +10,37 @@ const description = "Clinical clarity for families facing senior living decision
   <section class="hero" data-screen-label="Hero">
     <div class="hero__inner">
       <div class="hero__text">
-        <h1>Clear answers for the decisions that matter most.</h1>
+        <h1>Clear guidance for the decisions that matter most.</h1>
         <p class="hero__sub">Geriatrics is the field that asks what matters to you. I trained in it at Stanford, then spent years caring for older adults in their homes and across senior living communities. I built this for the same reason I chose the field: to be useful in the ways that actually matter.</p>
         <div class="hero__cta">
-          <a class="btn btn--accent" href="#checklist">Get the Free Tour Checklist
+          <p class="eyebrow eyebrow--gold hero__cta-label">Free resources</p>
+          <a class="btn btn--accent" href="/is-it-time">Take the Is It Time? assessment
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn--outline" href="/tour-kit">Get the Tour Day Kit
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
-        <span class="hero__secondary"><a href="/products">Learn about The Long Road &rarr;</a></span>
       </div>
       <figure class="hero__figure">
-        <div class="hero__media" role="img" aria-label="Hero image placeholder">
-          <span class="hero__media-label">Hero image</span>
+        <div class="hero__media">
+          <img src="/images/hero-genualdi.png" alt="Dr. Michael Genualdi, MD, board-certified geriatrician" width="1264" height="848" />
         </div>
-        <figcaption class="hero__caption">Dr. Michael Genualdi, MD &mdash; Board-Certified in Geriatrics and Internal Medicine</figcaption>
+        <figcaption class="hero__caption">Michael Genualdi, MD<br><span class="hero__caption-sub">Founder, The Geriatrician&rsquo;s Guide</span></figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- SECTION 2.5 — ROADMAP STRIP -->
+  <section class="roadmap" data-screen-label="Roadmap">
+    <div class="roadmap__inner">
+      <span class="roadmap__step"><a href="/is-it-time">Is it time?</a></span>
+      <span class="roadmap__sep">&mdash;</span>
+      <span class="roadmap__step"><a href="/starting-the-conversation">Start the conversation</a></span>
+      <span class="roadmap__sep">&mdash;</span>
+      <span class="roadmap__step"><a href="/tour-kit">Tour communities</a></span>
+      <span class="roadmap__sep">&mdash;</span>
+      <span class="roadmap__step"><a href="/the-long-road">Plan the road ahead</a></span>
     </div>
   </section>
 
@@ -35,34 +51,31 @@ const description = "Clinical clarity for families facing senior living decision
     </div>
   </section>
 
-  <!-- SECTION 4 — LEAD MAGNET -->
-  <section class="lead-light" id="checklist" data-screen-label="Lead magnet">
+  <!-- SECTION 4 — LEAD MAGNET TEASER (capture form lives on /tour-kit; one pipeline, no duplicate ESP) -->
+  <section class="lead-light" data-screen-label="Lead magnet">
     <div class="lead-light__inner">
       <p class="lead-light__eyebrow">Free Download</p>
-      <h2 class="lead-light__headline">The Tour Day Checklist</h2>
-      <p class="lead-light__sub">57 things a geriatrician looks for that won&rsquo;t appear on the brochure &mdash; organized the way I&rsquo;d walk a facility myself.</p>
+      <h2 class="lead-light__headline">The Tour Day Kit</h2>
+      <p class="lead-light__sub">Four printable tools for the day you tour &mdash; the Checklist, the Card, the Notes sheet, and the Community Scorecard. The questions a geriatrician asks, in your pocket.</p>
 
       <div class="proof-row">
         <div class="proof-item">
           <h3>Before you arrive</h3>
-          <p>What to look up, what to prepare, and which questions to write down before you schedule anything.</p>
+          <p>The Checklist &mdash; every domain to look up, prepare, and ask about before you schedule anything.</p>
         </div>
         <div class="proof-item">
           <h3>On the tour</h3>
-          <p>Medication safety, staffing patterns, memory care, physical environment, dining, contracts.</p>
+          <p>The Card and Notes sheet &mdash; the questions in your pocket, and somewhere to capture each visit before they blur together.</p>
         </div>
         <div class="proof-item">
           <h3>After you leave</h3>
-          <p>How to compare what you saw and what to follow up on before you decide.</p>
+          <p>The Community Scorecard &mdash; a clean way to score each community and lay your finalists side by side.</p>
         </div>
       </div>
 
-      <!-- BEEHIIV EMBED CODE HERE -->
-      <form class="lm-form--light" onsubmit="return false">
-        <input type="email" placeholder="you@email.com" aria-label="Email address">
-        <button type="submit">Get the checklist</button>
-      </form>
-      <p class="lead-light__fine">No spam. One resource. Unsubscribe anytime.</p>
+      <a class="btn btn--primary" href="/tour-kit">Get the free Tour Day Kit
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </div>
   </section>
 
@@ -70,7 +83,7 @@ const description = "Clinical clarity for families facing senior living decision
   <section class="independence" data-screen-label="Independence">
     <div class="independence__inner">
       <div class="independence__rule"></div>
-      <p class="independence__quote">No placement commissions. No facility money. No referral fees. Ever.</p>
+      <p class="independence__quote">No placement commissions. No facility money. Ever.</p>
       <p class="independence__body">I built this because people navigating this decision deserve at least one voice that has nothing to gain from where their loved one ends up.</p>
     </div>
   </section>
@@ -82,18 +95,38 @@ const description = "Clinical clarity for families facing senior living decision
         <p class="teaser__eyebrow">The Flagship</p>
         <h2 class="teaser__title">The Long Road</h2>
         <p class="teaser__sub">A Geriatrician&rsquo;s Complete Guide to Senior Care Decisions</p>
-        <p class="teaser__body">A 200-page reference covering the full arc &mdash; from the first signs of decline through end-of-life decisions. The finances, the tour, the contract, the conversation you&rsquo;ve been avoiding. Written for anyone navigating this for someone they love.</p>
-        <a class="btn btn--primary" href="/products">Learn more
+        <p class="teaser__body">A 247-page reference covering the full arc &mdash; from the first signs of decline through end-of-life decisions. The finances, the tour, the contract, the conversation you&rsquo;ve been avoiding. Written for anyone navigating this for someone they love.</p>
+        <a class="btn btn--primary" href="/the-long-road">Learn more
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
-      <div class="teaser__card" role="img" aria-label="The Long Road — book cover">
-        <p class="teaser__card-kicker">The</p>
-        <p class="teaser__card-name">Geriatrician&rsquo;s Guide</p>
-        <div class="teaser__card-rule"></div>
-        <h3 class="teaser__card-title">The Long Road</h3>
-        <p class="teaser__card-sub">A Geriatrician&rsquo;s Complete Guide to Senior Care Decisions</p>
+      <figure class="teaser__figure">
+        <img src="/images/the-long-road-cover.png" alt="The Long Road — A Geriatrician's Complete Guide to Senior Care Decisions, by Michael D. Genualdi, MD" width="2550" height="3300" />
+      </figure>
+    </div>
+  </section>
+
+  <!-- SECTION 7 — BLOG TEASER -->
+  <section class="blog-teaser" data-screen-label="Blog teaser">
+    <div class="blog-teaser__inner">
+      <p class="blog-teaser__eyebrow">From the Guide</p>
+      <h2 class="blog-teaser__title">Recent articles</h2>
+      <p class="blog-teaser__intro">Physician-written notes on the questions that come up most on tours, in contracts, and in the room with your loved one.</p>
+      <div class="blog-teaser__grid">
+        <article class="blog-teaser__card">
+          <a class="blog-teaser__card-title" href="/blog/assisted-living-contract-questions">Five Questions to Ask Before Signing an Assisted Living Contract</a>
+          <p class="blog-teaser__card-meta">July 7, 2026</p>
+          <p class="blog-teaser__card-desc">Most families sign assisted living contracts without reading the arbitration clause. Here is what a geriatrician looks for before a family puts pen to paper.</p>
+        </article>
+        <article class="blog-teaser__card">
+          <a class="blog-teaser__card-title" href="/blog/memory-care-staffing-question">The One Staffing Question Nobody Asks on a Memory Care Tour</a>
+          <p class="blog-teaser__card-meta">June 23, 2026</p>
+          <p class="blog-teaser__card-desc">What is posted on the wall and what is staffed at 11 PM on a Tuesday are two different numbers. A geriatrician explains how to get the real one.</p>
+        </article>
       </div>
+      <a class="textlink" href="/blog">Read all articles
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </div>
   </section>
 

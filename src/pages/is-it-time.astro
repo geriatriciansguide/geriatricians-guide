@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/is-it-time.css';
+
+const title = "Is It Time? — A Free Self-Assessment · The Geriatrician's Guide";
+const description = "A geriatrician's ten-question self-assessment that turns a vague impression into a plain answer: what to do next. No single score — just next steps.";
+---
+<BaseLayout title={title} description={description}>
+  <div class="iit" id="iit-root" data-pdf="/is-it-time-assessment.pdf" data-screen-label="Is It Time? tool"></div>
+</BaseLayout>
+
+<script is:inline>
+  /* One-time migration: an earlier build persisted answers to localStorage.
+     Clear those keys so nothing from a prior session lingers on the device. */
+  (function(){try{['iit-v1-answers','iit-v1-checks','iit-v1-step','iit-v1-screen','iit-v1-consent'].forEach(function(k){localStorage.removeItem(k);});}catch(e){}})();
+</script>
+<script>
+  import '../scripts/is-it-time.js';
+</script>

@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Starting the Conversation — A Free Guide · The Geriatrician's Guide";
+const description = "A six-step preparation framework for telling your loved one it may be time to consider senior living — from a board-certified geriatrician. Free printable guide.";
+---
+<BaseLayout title={title} description={description}>
+  <div class="wrap section tk" data-screen-label="Starting the Conversation landing">
+
+    <p class="eyebrow">Free Guide</p>
+    <h1>Starting the Conversation</h1>
+    <div class="tk__rule"></div>
+
+    <div class="tk__lede">
+      <p>The most important conversation in this whole process isn&rsquo;t with your siblings, or the financial advisor, or the admissions director. It&rsquo;s with your loved one.</p>
+    </div>
+    <p class="tk__body">A short preparation framework for one specific conversation: telling your loved one it may be time to consider senior living, and inviting them to start thinking about it with you. It won&rsquo;t script that conversation. What it will do is help you walk in prepared &mdash; six steps, in the order they tend to come up, built from what I&rsquo;ve seen work, and backfire, across years of watching these conversations happen in exam rooms and living rooms alike.</p>
+
+    <p class="tk__pieces-label">The six steps</p>
+    <ul class="tk__steps">
+      <li class="tk__step"><span class="tk__step-num">01</span><span class="tk__step-name">Choose the moment &mdash; when you can.</span></li>
+      <li class="tk__step"><span class="tk__step-num">02</span><span class="tk__step-name">Go in to listen, not to convince.</span></li>
+      <li class="tk__step"><span class="tk__step-num">03</span><span class="tk__step-name">Name the feeling before the facts.</span></li>
+      <li class="tk__step"><span class="tk__step-num">04</span><span class="tk__step-name">Complete and bring the <em>Is It Time?</em> assessment.</span></li>
+      <li class="tk__step"><span class="tk__step-num">05</span><span class="tk__step-name">Expect more than one conversation.</span></li>
+      <li class="tk__step"><span class="tk__step-num">06</span><span class="tk__step-name">When you&rsquo;re met with resistance.</span></li>
+    </ul>
+
+    <div class="tk__form-wrap">
+      <div class="tk__form-rule"></div>
+      <div class="tk__form-inner">
+        <p class="tk__form-label">Get the free guide.</p>
+        <p class="tk__form-sub">Enter your email and you&rsquo;ll receive the printable guide.<br>No spam, no placement calls. Unsubscribe anytime.</p>
+
+        <!-- Kit form 9942293 — tags the subscriber (starting-conversation-lead) and fires the
+             incentive email with the PDF. On success the page routes to the thanks page. -->
+        <form class="email-form email-form--dark" id="tk-form" action="https://app.kit.com/forms/9942293/subscriptions" method="post">
+          <input type="email" name="email_address" placeholder="you@email.com" aria-label="Email address" required />
+          <button type="submit">Send me the guide</button>
+        </form>
+        <p class="tk__fine">We never sell your personal information.</p>
+      </div>
+    </div>
+
+  </div>
+</BaseLayout>
+
+<script>
+  const f = document.getElementById('tk-form');
+  if (f) f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = f as HTMLFormElement;
+    const b = form.querySelector('button') as HTMLButtonElement;
+    b.disabled = true; b.textContent = 'Sending\u2026';
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then((r) => { if (!r.ok) throw 0; window.location.href = '/starting-the-conversation/thanks'; })
+      .catch(() => form.submit());
+  });
+</script>
+
+<style>
+  .tk { max-width: 800px; }
+  .tk .eyebrow { font-size: 12.5px; letter-spacing: 0.18em; }
+  .tk h1 {
+    font-family: var(--font-serif); font-weight: 500;
+    font-size: clamp(44px, 8vw, 68px); line-height: 1.0; letter-spacing: -0.02em;
+    color: var(--ink); margin-top: 14px;
+  }
+  .tk__rule { width: 96px; height: var(--rule-terra); background: var(--terra); margin: 26px 0 0; }
+  .tk__lede p {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(20px, 2.6vw, 24px); line-height: 1.55; color: var(--ink);
+    margin-top: 28px; text-wrap: pretty;
+  }
+  .tk__body {
+    font-family: var(--font-sans); font-weight: 400; font-size: 17px; color: var(--ink);
+    line-height: 1.75; margin-top: 16px; text-wrap: pretty;
+  }
+  .tk__pieces-label {
+    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.16em; font-size: 13px; color: var(--terra);
+    display: flex; align-items: center; gap: 16px; margin: 28px 0 20px;
+  }
+  .tk__steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+  .tk__step { display: grid; grid-template-columns: 52px 1fr; align-items: baseline; gap: 8px; padding: 15px 4px; border-bottom: 1px solid var(--hairline); }
+  .tk__step-num { font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; color: var(--terra); }
+  .tk__step-name { font-family: var(--font-serif); font-weight: 500; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.35; color: var(--ink); letter-spacing: -0.01em; text-wrap: pretty; }
+  .tk__steps-foot { font-family: var(--font-sans); font-weight: 400; font-size: 15px; color: var(--muted); line-height: 1.7; margin-top: 18px; }
+  /* Form — signature device: Terracotta rule -> Midnight field -> Fog text */
+  .tk__form-wrap {
+    margin-top: 56px; border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.18);
+  }
+  .tk__form-rule { height: var(--rule-terra); background: var(--terra); }
+  .tk__form-inner { background: var(--midnight); padding: clamp(36px,5vw,52px) clamp(28px,5vw,52px); }
+  .tk__form-label { font-family: var(--font-serif); font-weight: 500; font-size: clamp(24px, 3vw, 30px); color: var(--on-dark); margin-bottom: 10px; letter-spacing: -0.01em; }
+  .tk__form-sub { font-family: var(--font-sans); font-weight: 300; font-size: 16px; color: rgba(245,240,230,0.68); line-height: 1.6; margin-bottom: 26px; text-wrap: pretty; max-width: 480px; }
+  .tk__fine { font-family: var(--font-sans); font-weight: 300; font-size: 13px; color: rgba(245,240,230,0.5); margin-top: 10px; }
+  .tk-kit-placeholder {
+    border: 1px dashed rgba(245,240,230,0.2); border-radius: var(--radius); background: rgba(0,0,0,0.15);
+    padding: 14px 18px; margin-top: 24px; max-width: 480px;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 400; font-style: italic; color: rgba(245,240,230,0.55);
+  }
+</style>

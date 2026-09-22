@@ -3,7 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,7 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,6 +35,7 @@ const { title, description } = Astro.props;
     </script>
 
     <link rel="icon" href="/favicon.ico" />
+    <script is:inline src="/assets/email-validate.js" defer></script>
   </head>
   <body>
     <Header />

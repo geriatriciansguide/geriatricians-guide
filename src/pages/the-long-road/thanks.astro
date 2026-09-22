@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Your Email Is Confirmed · The Geriatrician's Guide";
+const description = "Download Chapter 11 of The Long Road.";
+---
+<BaseLayout title={title} description={description} noindex={true}>
+<div class="wrap section tk" data-screen-label="Free chapter confirmation">
+
+    <p class="eyebrow">Confirmed</p>
+    <h1>Chapter 11 is ready.</h1>
+    <div class="tk__rule"></div>
+
+    <p class="tk__body">Your email is confirmed. Download the chapter below &mdash; a copy is also landing in your inbox, so you have it later.</p>
+
+    <a class="tk__dl" href="/downloads/the-long-road-chapter-11.pdf" download="The Long Road - Chapter 11.pdf">
+      <span class="tk__dl-num"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v5h6"/><path d="M9 13h6"/><path d="M9 17h4"/></svg></span>
+      <span>
+        <span class="tk__dl-name">The Long Road &mdash; Chapter 11</span>
+      </span>
+      <span class="tk__dl-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Download</span>
+    </a>
+
+    <p class="tk__ch-label">What&rsquo;s in the chapter</p>
+    <ul class="tk__ch-list">
+      <li>What senior living actually costs, and how the base rate on the brochure differs from what you pay by month six.</li>
+      <li>The care-level fees no one volunteers on a tour, and how they climb as needs change.</li>
+      <li>Where Medicare stops paying &mdash; the single most common and most expensive misunderstanding people bring to this decision.</li>
+    </ul>
+
+    <div class="tk__spam">
+      <p>Don&rsquo;t see the email copy in a few minutes? Check your spam or promotions folder for an email from <strong>dr.genualdi@geriatriciansguide.com</strong>, and add it to your contacts so the next one lands in your inbox.</p>
+    </div>
+
+    <div class="tk__book">
+      <div class="tk__book-cover">
+        <img src="/images/the-long-road-cover.png" alt="The Long Road — A Geriatrician's Complete Guide to Senior Care Decisions, by Michael D. Genualdi, MD" width="2550" height="3300">
+      </div>
+      <div class="tk__book-text">
+        <p class="eyebrow">The Full Book</p>
+        <h2 class="tk__book-title">The Long Road</h2>
+        <p>Chapter 11 is one of 41, across six parts &mdash; from the first worrying signs through touring, contracts, memory care, and hospice. Written to be read out of order. Every chapter opens with what it answers and who it&rsquo;s for, and closes with one action worth taking this week.</p>
+        <p class="tk__book-price">$97 <span>one-time payment</span></p>
+        <!-- LEMON SQUEEZY PRODUCT URL HERE -->
+        <a class="btn btn--accent" href="/the-long-road">Get Instant Access <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Dev note: this page is unlisted (noindex, no nav link, keep out of the sitemap);
+         it's reachable only via the Kit confirmation redirect, so everyone who lands here
+         has already confirmed a working address. -->
+
+  </div>
+</BaseLayout>
+
+<style>
+  .tk { max-width: 800px; }
+  .tk .eyebrow { font-size: 12.5px; letter-spacing: 0.18em; }
+  .tk h1 { font-family: var(--font-serif); font-weight: 500; font-size: clamp(38px, 6.5vw, 56px); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin-top: 14px; }
+  .tk__rule { width: 96px; height: var(--rule-terra); background: var(--terra); margin: 26px 0 0; }
+  .tk__body { font-family: var(--font-sans); font-weight: 400; font-size: 17px; color: var(--ink); line-height: 1.8; margin-top: 18px; text-wrap: pretty; }
+  .tk__spam { background: var(--midnight-tint); border-left: 2px solid var(--faint); border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin-top: 32px; }
+  .tk__spam p { font-family: var(--font-sans); font-weight: 400; font-size: 15px; color: var(--ink); line-height: 1.7; margin: 0; }
+  .tk__dl { display: grid; grid-template-columns: 44px 1fr auto; gap: 20px; align-items: center; background: var(--terra-tint); border: 1px solid var(--hairline); border-left: 3px solid var(--terra); outline: 1.5px solid transparent; outline-offset: -2px; border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; margin-top: 26px; text-decoration: none; transition: outline-color .15s ease, box-shadow .15s ease; }
+  .tk__dl:hover { box-shadow: var(--shadow-card); outline-color: var(--terra); text-decoration: none; }
+  .tk__dl-num { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--terra); color: var(--paper); }
+  .tk__dl-num svg { display: block; }
+  .tk__dl-name { font-family: var(--font-serif); font-weight: 500; font-size: 19px; color: var(--ink); display: block; }
+  .tk__dl-meta { font-family: var(--font-sans); font-weight: 400; font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; display: block; }
+  .tk__dl-action { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.02em; color: var(--ink); border-bottom: 2px solid var(--terra); padding-bottom: 3px; white-space: nowrap; }
+  .tk__dl-action svg { display: block; color: var(--terra); }
+  @media (max-width: 620px) { .tk__dl { grid-template-columns: 44px 1fr; } .tk__dl-action { grid-column: 2; } }
+  .tk__ch-label { font-family: var(--font-sans); font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; font-size: 13px; color: var(--terra); display: flex; align-items: center; gap: 16px; margin: 44px 0 18px; }
+  .tk__ch-label::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
+  .tk__ch-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .tk__ch-list li { display: grid; grid-template-columns: 18px 1fr; gap: 14px; font-family: var(--font-sans); font-weight: 400; font-size: 16px; color: var(--ink); line-height: 1.7; text-wrap: pretty; }
+  .tk__ch-list li::before { content: "\2014"; color: var(--terra); }
+  .tk__book { margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 325px 1fr; gap: 44px; align-items: start; }
+  .tk__book-cover img { width: 100%; height: auto; display: block; border-radius: var(--radius); box-shadow: var(--shadow-page); }
+  .tk__book-title { font-family: var(--font-serif); font-weight: 500; font-size: clamp(26px, 3.4vw, 34px); line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); }
+  .tk__book-text p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; color: var(--muted); line-height: 1.75; margin-top: 14px; text-wrap: pretty; }
+  .tk__book-text p.tk__book-price { font-family: var(--font-serif); font-weight: 500; font-size: 26px; color: var(--golden); margin: 22px 0 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+  .tk__book-text p.tk__book-price span { font-family: var(--font-sans); font-weight: 400; font-size: 12.5px; letter-spacing: 0.06em; color: var(--muted); text-transform: uppercase; }
+  @media (max-width: 560px) { .tk__book { grid-template-columns: 1fr; } .tk__book-cover { max-width: 160px; } }
+</style>
