@@ -27,10 +27,11 @@ Connect this repo to Netlify. `netlify.toml` sets `command = "npm run build"` an
 ## Structure
 ```
 src/
-  components/   Header, Footer, LeadMagnetForm
+  components/   Header, Footer, LeadMagnetCTA
   content/blog/ Markdown posts (content collection)
   layouts/      BaseLayout, BlogPostLayout
-  pages/        index, about, products, contact, blog/, + legal stubs
+  pages/        index, about, the-long-road, tour-kit/, starting-the-conversation/,
+                is-it-time, contact, blog/, + legal stubs
   styles/       global.css (brand tokens + all styles)
 public/
   images/author-placeholder.jpg
@@ -83,14 +84,22 @@ automatically by `BlogPostLayout.astro` — you no longer hand-write `<p class="
 
 ## Placeholders to wire before launch
 Search the codebase for these comments:
-- `<!-- BEEHIIV EMBED CODE HERE -->` — `src/components/LeadMagnetForm.astro`
-- `<!-- LEMON SQUEEZY PRODUCT URL HERE -->` — `src/pages/products.astro` (the buy button `href`)
-- `<!-- FREE CHAPTER LINK HERE -->` — `src/pages/products.astro`
+- `<!-- KIT (CONVERTKIT) CREATOR-PIPELINE EMBED CODE HERE -->` — `src/pages/tour-kit.astro`,
+  `src/pages/starting-the-conversation.astro`, `src/scripts/is-it-time.js`
+- `<!-- LEMON SQUEEZY PRODUCT URL HERE -->` — `src/pages/the-long-road.astro` (the buy button `href`)
+- `<!-- FREE CHAPTER LINK HERE -->` — `src/pages/the-long-road.astro`
 - `<!-- PLAUSIBLE SCRIPT TAG HERE -->` — `src/layouts/BaseLayout.astro`
 - `<!-- REPLACE author-placeholder.jpg WITH BLUE BLAZER PORTRAIT -->` — `src/pages/about.astro`
 
-## Note on the lead magnet form
-Per the brief, `LeadMagnetForm.astro` ships with the Beehiiv embed slot only (no live form).
-Paste the Beehiiv embed where marked. The static HTML preview at the project root shows a
-styled stand-in input so reviewers can see the intended block; it is not wired to anything.
-"# geriatricians-guide" 
+## Note on the lead magnets
+Each lead magnet has one landing page that owns its capture form, and one Kit pipeline:
+
+| Magnet | Landing page | Thank-you page | Kit tag |
+|---|---|---|---|
+| Tour Day Kit | `/tour-kit` | `/tour-kit/thanks` | `tour-kit-lead` |
+| Starting the Conversation | `/starting-the-conversation` | `/starting-the-conversation/thanks` | `starting-conversation-lead` |
+| Is It Time? results | `/is-it-time` (in-tool gate) | — | — |
+
+Everywhere else — the home page, `/the-long-road`, the assessment results — links to
+those landing pages rather than embedding a second form. `LeadMagnetCTA.astro` is that
+link block. Kit delivers the PDFs by email; they are not hosted on the site.
