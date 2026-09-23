@@ -312,7 +312,10 @@
   .iit { margin: 24px 12px; padding: clamp(24px,6vw,36px) clamp(20px,5vw,28px); }
   .iit-q-head { gap: 14px; }
   .iit-actions { gap: 20px; }
-  .iit-answer-score-label { width: auto; }
+  .iit-answers-list li { display: grid; grid-template-columns: 30px minmax(0,1fr); grid-template-areas: "badge label" "badge body"; column-gap: 14px; row-gap: 4px; }
+  .iit-answer-badge { grid-area: badge; }
+  .iit-answer-score-label { grid-area: label; width: auto; padding-top: 0; align-self: center; min-height: 30px; display: flex; align-items: center; }
+  .iit-answer-body { grid-area: body; }
 }
 
 /* ============================================================
