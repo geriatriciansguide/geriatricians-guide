@@ -15,8 +15,8 @@
 }
 
 .iit-screen { display: none; }
-.iit-screen.is-active { display: block; animation: iit-fade .22s cubic-bezier(.4,0,.2,1); }
-@keyframes iit-fade { from { transform: translateY(6px); } to { transform: translateY(0); } }
+.iit-screen.is-active { display: block; animation: iit-fade .18s cubic-bezier(.4,0,.2,1); }
+@keyframes iit-fade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .iit-screen.is-active { animation: none; } }
 
 /* ---- Shared type ---- */
