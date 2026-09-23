@@ -64,7 +64,34 @@
 /* Shared Kit submit for every .email-form. Posts in the background, treats anything
      other than a clean success as a failure, and keeps the reader on this site:
      the button re-enables and an inline message asks them to try again. */
-  window.ggKitSubmit = function (form, onSuccess, onGuard) {
+
+  /* Kit's bot check. Kit's guard page only works inside an iframe: it posts
+     'ckjs:guard:size' to size itself and 'ckjs:guard:confirmed' when passed
+     (same protocol Kit's own ck.5.js uses). Shown in a plain overlay on this page. */
+  function guard(url, onDone, onCancel) {
+    var ov = document.createElement('div');
+    ov.className = 'kit-guard';
+    ov.setAttribute('role', 'dialog');
+    ov.setAttribute('aria-modal', 'true');
+    ov.setAttribute('aria-label', 'Confirm you are not a robot');
+    ov.innerHTML = '<div class="kit-guard__box"><button type="button" class="kit-guard__close" aria-label="Close">\u00d7</button><p class="kit-guard__label">One more step: confirm you are not a robot.</p><iframe class="kit-guard__frame" title="Kit verification"></iframe></div>';
+    var frame = ov.querySelector('iframe');
+    frame.src = url;
+    function onMsg(e) {
+      if (!/(^|\.)kit\.com$|(^|\.)convertkit\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) return;
+      var m = e.data || {};
+      if (m.name === 'ckjs:guard:size') { if (m.height) frame.style.height = m.height + 'px'; if (m.width) frame.style.width = Math.min(m.width, window.innerWidth - 48) + 'px'; }
+      else if (m.name === 'ckjs:guard:confirmed') { close(); onDone(); }
+    }
+    function close() { window.removeEventListener('message', onMsg); document.removeEventListener('keydown', onKey); ov.remove(); }
+    function onKey(e) { if (e.key === 'Escape') { close(); onCancel(); } }
+    ov.querySelector('.kit-guard__close').addEventListener('click', function () { close(); onCancel(); });
+    window.addEventListener('message', onMsg);
+    document.addEventListener('keydown', onKey);
+    document.body.appendChild(ov);
+  }
+
+  window.ggKitSubmit = function (form, onSuccess) {
     var b = form.querySelector('button');
     var label = b ? b.innerHTML : '';
     if (b) { if (!b.dataset.label) b.dataset.label = label; b.disabled = true; b.textContent = 'Sending\u2026'; }
@@ -75,14 +102,15 @@
         try { console.info('[Kit]', form.action, d); } catch (x) {}
         /* Kit's bot guard: the signup is held until the person confirms on Kit's check page.
            Nothing is subscribed until they do, so send them there (or hand the URL back). */
-        if (d && d.status === 'quarantined' && d.url) { if (onGuard) onGuard(d.url); else window.location.href = d.url; return; }
+        if (d && d.status === 'quarantined' && d.url) { guard(d.url, onSuccess, function () { reset(); show(form, 'Signup not finished. Submit again when you are ready.'); }); return; }
         if (d && d.status && d.status !== 'success') throw 0;
         onSuccess();
       })
       .catch(function () {
-        if (b) { b.disabled = false; b.innerHTML = label; }
+        reset();
         show(form, 'Your email did not go through. Check your connection and try again.');
       });
+    function reset() { if (b) { b.disabled = false; b.innerHTML = label; } }
   };
 
   /* Back button: browsers restore the page exactly as it was left, mid-"Sending…".

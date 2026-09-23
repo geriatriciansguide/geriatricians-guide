@@ -149,7 +149,6 @@ let consented = false;
 /* Email gate between question 10 and the results. In memory only, like the clickwrap. */
 let emailed = false;
 let sentTo = '';
-let guardUrl = '';
 /* Host-relative legal links: static build uses .html pages, Astro build uses clean routes. */
 const HTML_HOST = location.pathname.indexOf('.html') !== -1;
 const TERMS_HREF = HTML_HOST ? 'terms.html' : '/terms';
@@ -331,7 +330,6 @@ function screenResult() {
 
   return `
   <section class="iit-screen" data-screen="result">
-    ${guardUrl ? `<p class="iit-guard">One more step to finish subscribing: <a href="${esc(guardUrl)}" target="_blank" rel="noopener">confirm your email address</a> on Kit’s check page. It opens in a new tab.</p>` : ''}
     <p class="iit-section-label">Your outcome</p>
 
     <div class="iit-before">
@@ -478,7 +476,7 @@ function onClick(e) {
   else if (action === 'retake') {
     if (advanceTimer) { clearTimeout(advanceTimer); advanceTimer = null; }
     // A fresh run means a fresh agreement: the box has to be checked again.
-    answers = {}; checks = {}; stepIdx = 0; screen = 'intro'; justPicked = null; consented = false; emailed = false; sentTo = ''; guardUrl = '';
+    answers = {}; checks = {}; stepIdx = 0; screen = 'intro'; justPicked = null; consented = false; emailed = false; sentTo = '';
     save(KEY.answers, answers); save(KEY.checks, checks); save(KEY.step, stepIdx);
     render();
   }
@@ -512,13 +510,6 @@ function onSubmit(e) {
   window.ggKitSubmit(form, function () {
     sentTo = field.value;
     emailed = true;
-    render();
-  }, function (url) {
-    // Kit wants a quick bot check before it subscribes. Show the results anyway and
-    // link the check in a new tab, so the answers on this page are not lost.
-    sentTo = field.value;
-    emailed = true;
-    guardUrl = url;
     render();
   });
 }
