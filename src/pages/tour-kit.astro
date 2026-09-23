@@ -68,15 +68,10 @@ const description = "Four printable tools for the day you tour a senior living c
 </BaseLayout>
 
 <script>
-  const f = document.getElementById('tk-form');
+  const f = document.getElementById('tk-form') as HTMLFormElement | null;
   if (f) f.addEventListener('submit', (e) => {
     e.preventDefault();
-    const form = f as HTMLFormElement;
-    const btn = form.querySelector('button') as HTMLButtonElement;
-    btn.disabled = true; btn.textContent = 'Sending\u2026';
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-      .then((r) => { if (!r.ok) throw 0; window.location.href = '/tour-kit/thanks'; })
-      .catch(() => form.submit());
+    (window as any).ggKitSubmit(f, () => { window.location.href = '/tour-kit/thanks'; });
   });
 </script>
 

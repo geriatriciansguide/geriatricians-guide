@@ -46,15 +46,10 @@ const description = "A six-step preparation framework for telling your loved one
 </BaseLayout>
 
 <script>
-  const f = document.getElementById('tk-form');
+  const f = document.getElementById('tk-form') as HTMLFormElement | null;
   if (f) f.addEventListener('submit', (e) => {
     e.preventDefault();
-    const form = f as HTMLFormElement;
-    const b = form.querySelector('button') as HTMLButtonElement;
-    b.disabled = true; b.textContent = 'Sending\u2026';
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-      .then((r) => { if (!r.ok) throw 0; window.location.href = '/starting-the-conversation/thanks'; })
-      .catch(() => form.submit());
+    (window as any).ggKitSubmit(f, () => { window.location.href = '/starting-the-conversation/thanks'; });
   });
 </script>
 

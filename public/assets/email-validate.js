@@ -61,4 +61,35 @@
       clear(input.form);
     }
   }, true);
+/* Shared Kit submit for every .email-form. Posts in the background, treats anything
+     other than a clean success as a failure, and keeps the reader on this site:
+     the button re-enables and an inline message asks them to try again. */
+  window.ggKitSubmit = function (form, onSuccess, onGuard) {
+    var b = form.querySelector('button');
+    var label = b ? b.innerHTML : '';
+    if (b) { if (!b.dataset.label) b.dataset.label = label; b.disabled = true; b.textContent = 'Sending\u2026'; }
+    clear(form);
+    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+      .then(function (r) { if (!r.ok) throw 0; return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        try { console.info('[Kit]', form.action, d); } catch (x) {}
+        /* Kit's bot guard: the signup is held until the person confirms on Kit's check page.
+           Nothing is subscribed until they do, so send them there (or hand the URL back). */
+        if (d && d.status === 'quarantined' && d.url) { if (onGuard) onGuard(d.url); else window.location.href = d.url; return; }
+        if (d && d.status && d.status !== 'success') throw 0;
+        onSuccess();
+      })
+      .catch(function () {
+        if (b) { b.disabled = false; b.innerHTML = label; }
+        show(form, 'Your email did not go through. Check your connection and try again.');
+      });
+  };
+
+  /* Back button: browsers restore the page exactly as it was left, mid-"Sending…".
+     Put every form button back to its original state. */
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    var btns = document.querySelectorAll('.email-form button[data-label]');
+    for (var i = 0; i < btns.length; i++) { btns[i].disabled = false; btns[i].innerHTML = btns[i].dataset.label; }
+  });
 })();

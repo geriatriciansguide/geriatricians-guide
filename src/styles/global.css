@@ -671,17 +671,25 @@ main { display: block; }
 }
 
 /* ============================================================
-   ROADMAP STRIP (home, directly under hero) — orients the visitor
-   across the four resources without forcing every step into a link.
+   START WHERE YOU ARE (home, directly under hero) — four stage cards,
+   each linking to its tool, guide, or article.
    ============================================================ */
-.roadmap { background: var(--midnight-90); padding: 20px max(var(--padding-h),5vw); border-top: 1px solid rgba(245,240,230,0.08); }
-.roadmap__inner { max-width: var(--site-max); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 16px; }
-.roadmap__step { font-family: var(--font-sans); font-weight: 600; font-size: 12px; letter-spacing: 0.13em; text-transform: uppercase; color: rgba(245,240,230,0.55); }
-.roadmap__step a { color: var(--fog); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color .15s ease, color .15s ease; }
-.roadmap__step a:hover { color: var(--golden); border-color: var(--golden); }
-.roadmap__step--muted { font-style: italic; font-family: var(--font-serif); text-transform: none; letter-spacing: 0; font-size: 13px; color: rgba(245,240,230,0.4); }
-.roadmap__sep { color: var(--terra); font-weight: 600; font-size: 12px; }
-@media (max-width: 560px) { .roadmap__inner { gap: 6px 10px; } }
+.stages { background: var(--midnight); color: var(--fog); padding: 0 max(var(--padding-h),5vw) var(--home-pad-v); }
+.stages__inner { max-width: var(--site-max); margin: 0 auto; border-top: 1px solid rgba(245,240,230,0.14); padding-top: 56px; }
+.stages__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 32px; margin-bottom: 32px; }
+.stages__head h2 { font-family: var(--font-serif); font-weight: 400; font-size: 32px; letter-spacing: -0.01em; margin: 0; color: var(--fog); }
+.stages__head p { font-family: var(--font-sans); font-size: 16px; color: rgba(245,240,230,0.75); margin: 0; }
+.stages__grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 20px; }
+.stage { background: var(--midnight-90); border-top: 3px solid var(--terra); border-radius: 2px; padding: 26px 24px 24px; display: flex; flex-direction: column; gap: 12px; }
+.stage__n { font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.16em; color: var(--golden); }
+.stage h3 { font-family: var(--font-serif); font-weight: 400; font-size: 23px; line-height: 1.25; margin: 0; color: var(--fog); }
+.stage p { font-family: var(--font-sans); font-size: 15px; line-height: 1.7; color: rgba(245,240,230,0.8); margin: 0; flex: 1; }
+.stage ul { list-style: none; margin: 6px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(245,240,230,0.12); display: flex; flex-direction: column; gap: 8px; }
+.stage li span { display: block; font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,230,0.6); margin-bottom: 2px; }
+.stage li a { font-family: var(--font-sans); font-size: 15px; font-weight: 600; color: var(--golden); text-decoration: none; }
+.stage li a:hover { text-decoration: underline; text-decoration-color: var(--terra); text-underline-offset: 4px; }
+@media (max-width: 900px) { .stages__grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .stages__grid { grid-template-columns: minmax(0,1fr); } .stages__inner { padding-top: 44px; } }
 
 /* ============================================================
    BLOG TEASER (home, before footer) — Midnight field, paper cards

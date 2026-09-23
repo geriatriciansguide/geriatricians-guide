@@ -110,6 +110,6 @@ const description = "A guide to senior living decisions written by a Stanford-tr
 
 
 <script is:inline>
-    var fc=document.getElementById('fc-form');if(fc){fc.addEventListener('submit',function(e){e.preventDefault();var b=fc.querySelector('button');b.disabled=true;b.textContent='Sending\u2026';fetch(fc.action,{method:'POST',body:new FormData(fc),headers:{'Accept':'application/json'}}).then(function(r){if(!r.ok)throw 0;fc.hidden=true;document.getElementById('fc-fine').hidden=true;document.getElementById('fc-done').hidden=false;}).catch(function(){fc.submit();});});}
+    var fc=document.getElementById('fc-form');if(fc){fc.addEventListener('submit',function(e){e.preventDefault();window.ggKitSubmit(fc,function(){fc.hidden=true;document.getElementById('fc-fine').hidden=true;document.getElementById('fc-done').hidden=false;});});}
 </script>
 </BaseLayout>

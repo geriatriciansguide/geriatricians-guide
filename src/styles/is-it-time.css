@@ -368,3 +368,6 @@
 .iit-mailme__sent { font-family: var(--font-sans); font-weight: 400; font-size: 15px; color: var(--muted); line-height: 1.7; margin: 28px 0 0; padding-left: 14px; border-left: 2px solid var(--golden); }
 .iit-mailme__sent:empty { display: none; }
 @media print { .iit-mailme__sent { display: none !important; } }
+
+.iit-guard { font-family: var(--font-sans); font-size: 16px; line-height: 1.75; background: var(--midnight-tint); border-left: 2px solid var(--golden); border-radius: 2px; padding: 14px 18px; margin: 0 0 28px; }
+.iit-guard a { color: var(--ink); font-weight: 600; text-decoration: underline; text-decoration-color: var(--terra); text-underline-offset: 3px; }
