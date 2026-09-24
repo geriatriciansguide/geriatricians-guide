@@ -759,6 +759,7 @@ main { display: block; }
 .tk__form-label { line-height: 1.25; text-wrap: balance; }
 
 /* Kit bot-check overlay (email-validate.js) */
+.kit-guard[hidden] { display: none; }
 .kit-guard { position: fixed; inset: 0; z-index: 1000; background: rgba(26,44,64,0.72); display: flex; align-items: center; justify-content: center; padding: 24px; }
 .kit-guard__box { position: relative; background: var(--paper); border-top: 3px solid var(--terra); border-radius: 2px; box-shadow: 0 4px 40px rgba(0,0,0,0.18); padding: 44px 24px 24px; max-width: 100%; max-height: calc(100vh - 48px); overflow: auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .kit-guard__label { font-family: var(--font-sans); font-size: 16px; line-height: 1.6; color: var(--ink); margin: 0; text-align: center; }

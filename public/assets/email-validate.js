@@ -68,9 +68,10 @@
   /* Kit's bot check. Kit's guard page only works inside an iframe: it posts
      'ckjs:guard:size' to size itself and 'ckjs:guard:confirmed' when passed
      (same protocol Kit's own ck.5.js uses). Shown in a plain overlay on this page. */
-  function guard(url, onDone, onCancel) {
+  function guard(url, onDone, onCancel, onFail) {
     var ov = document.createElement('div');
     ov.className = 'kit-guard';
+    ov.hidden = true;
     ov.setAttribute('role', 'dialog');
     ov.setAttribute('aria-modal', 'true');
     ov.setAttribute('aria-label', 'Confirm you are not a robot');
@@ -80,10 +81,15 @@
     function onMsg(e) {
       if (!/(^|\.)kit\.com$|(^|\.)convertkit\.com$/.test((e.origin || '').replace(/^https?:\/\//, ''))) return;
       var m = e.data || {};
+      if (m.name === 'ckjs:guard:loaded' || m.name === 'ckjs:guard:size') { ready(); }
       if (m.name === 'ckjs:guard:size') { if (m.height) frame.style.height = m.height + 'px'; if (m.width) frame.style.width = Math.min(m.width, window.innerWidth - 48) + 'px'; }
       else if (m.name === 'ckjs:guard:confirmed') { close(); onDone(); }
     }
-    function close() { window.removeEventListener('message', onMsg); document.removeEventListener('keydown', onKey); ov.remove(); }
+    /* The overlay stays hidden until Kit's check reports in. If it never does
+       (Kit sometimes serves a 404 there), give up quietly instead of showing a broken page. */
+    var timer = setTimeout(function () { close(); onFail(); }, 8000);
+    function ready() { clearTimeout(timer); ov.hidden = false; }
+    function close() { clearTimeout(timer); window.removeEventListener('message', onMsg); document.removeEventListener('keydown', onKey); ov.remove(); }
     function onKey(e) { if (e.key === 'Escape') { close(); onCancel(); } }
     ov.querySelector('.kit-guard__close').addEventListener('click', function () { close(); onCancel(); });
     window.addEventListener('message', onMsg);
@@ -91,18 +97,35 @@
     document.body.appendChild(ov);
   }
 
+  function ckid() {
+    try { var v = localStorage.getItem('ckid'); if (!v) { v = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)); localStorage.setItem('ckid', v); } return v; } catch (e) { return ''; }
+  }
+  /* Kit's embed script records a form view on page load; do the same for Kit forms already on the page. */
+  function visit() {
+    var forms = document.querySelectorAll('form.email-form[action*="kit.com/forms/"]');
+    for (var i = 0; i < forms.length; i++) {
+      var m = forms[i].action.match(/forms\/(\d+)\//); if (!m) continue;
+      try { fetch('https://app.convertkit.com/forms/' + m[1] + '/visit', { method: 'POST', body: JSON.stringify({ host: location.href, referrer: document.referrer, search: location.search, token: '', user: ckid() }), headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-CKJS-Version': '6' } }).catch(function () {}); } catch (e) {}
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', visit); else visit();
+
   window.ggKitSubmit = function (form, onSuccess) {
     var b = form.querySelector('button');
     var label = b ? b.innerHTML : '';
     if (b) { if (!b.dataset.label) b.dataset.label = label; b.disabled = true; b.textContent = 'Sending\u2026'; }
     clear(form);
-    fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+    /* Same extra fields Kit's own embed script sends with every signup. */
+    var fd = new FormData(form);
+    fd.append('token', ''); fd.append('referrer', document.referrer); fd.append('host', location.href);
+    fd.append('search', location.search); fd.append('user', ckid()); fd.append('ckjs_version', '6');
+    fetch(form.action, { method: 'POST', body: fd, headers: { Accept: 'application/json', 'X-CKJS-Version': '6' } })
       .then(function (r) { if (!r.ok) throw 0; return r.json().catch(function () { return {}; }); })
       .then(function (d) {
         try { console.info('[Kit]', form.action, d); } catch (x) {}
         /* Kit's bot guard: the signup is held until the person confirms on Kit's check page.
            Nothing is subscribed until they do, so send them there (or hand the URL back). */
-        if (d && d.status === 'quarantined' && d.url) { guard(d.url, onSuccess, function () { reset(); show(form, 'Signup not finished. Submit again when you are ready.'); }); return; }
+        if (d && d.status === 'quarantined' && d.url) { guard(d.url, onSuccess, function () { reset(); show(form, 'Signup not finished. Submit again when you are ready.'); }, function () { reset(); show(form, 'Your signup could not be completed right now. Please try again in a few minutes.'); }); return; }
         if (d && d.status && d.status !== 'success') throw 0;
         onSuccess();
       })
