@@ -63,6 +63,18 @@ collections:
         required: false
         hint: "Optional. The short italic intro that sits under the headline, set in the serif. Plain text — no formatting needed."
 
+      - name: "eyebrow"
+        label: "Topic label"
+        widget: "string"
+        required: false
+        hint: "Optional. Short tracked label above the headline, e.g. Contracts · Money."
+
+      - name: "related"
+        label: "Keep reading (slug)"
+        widget: "string"
+        required: false
+        hint: "Optional. URL slug of the article to suggest at the end. Leave blank to suggest the next-older article automatically."
+
       - name: "body"
         label: "Article body"
         widget: "markdown"

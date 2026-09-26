@@ -7,6 +7,8 @@ const blog = defineCollection({
     pubDate: z.date(),
     description: z.string(),
     lead: z.string().optional(),
+    eyebrow: z.string().optional(),
+    related: z.string().optional(),
   }),
 });
 

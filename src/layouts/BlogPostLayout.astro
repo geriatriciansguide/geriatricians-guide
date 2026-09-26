@@ -1,21 +1,35 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-const { frontmatter } = Astro.props;
-const { title, description, pubDate, lead } = frontmatter;
+const { frontmatter, next } = Astro.props;
+const { title, description, pubDate, lead, eyebrow } = frontmatter;
 const dateStr = new Date(pubDate).toLocaleDateString('en-US', {
-  year: 'numeric', month: 'long', day: 'numeric',
+  year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
 });
+const article = {
+  title,
+  ...(description ? { description } : {}),
+  datePublished: new Date(pubDate).toISOString().slice(0, 10),
+};
 ---
-<BaseLayout title={`${title} — The Geriatrician's Guide`} description={description}>
-  <div class="post-header">
-    <div class="post-header__inner">
-      <h1>{title}</h1>
-      <p class="byline"><strong>Michael D. Genualdi, MD</strong> &middot; {dateStr}</p>
-    </div>
-  </div>
-  <div class="rule-terra" style="height:2px"></div>
-  <div class="wrap section post-body">
-    {lead && <p class="lead">{lead}</p>}
-    <slot />
-  </div>
+<BaseLayout title={`${title} — The Geriatrician's Guide`} description={description} structuredDataType="article" article={article}>
+<script is:inline slot="head">try{if(localStorage.getItem("tgg-reading-theme")==="dark")document.documentElement.dataset.reading="dark"}catch(e){}</script>
+<div class="article">
+<section class="article__sheet">
+<div class="article__titleblock">
+<div class="bindex__toprow">{eyebrow ? <p class="article__eyebrow">{eyebrow}</p> : <span></span>}<button class="theme-toggle" type="button" aria-pressed="false"><svg class="theme-toggle__moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><svg class="theme-toggle__sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><span class="theme-toggle__label">Dark Mode</span></button></div>
+<h1 class="article__title">{title}</h1>
+<div class="article__byline"><img src="/images/author-profile-1x1.png" alt="" width="48" height="48"><div><a class="article__author" href="/about">Michael D. Genualdi, MD</a><span class="article__meta">Board-certified geriatrician &middot; {dateStr}</span></div></div>
+</div>
+<div class="article__body post-body">
+{lead && <p class="lead">{lead}</p>}
+<slot />
+</div>
+<div class="article__end">
+<div class="article__author-card"><img src="/images/author-profile-1x1.png" alt="Michael D. Genualdi, MD" width="96" height="96"><div><p class="article__author-label">About the author</p><p class="article__author-bio">The Geriatrician&rsquo;s Guide is founded and edited by <b>Michael D. Genualdi, MD</b>, a board-certified geriatrician and internist. After completing his residency and fellowship training at Stanford, he spent years caring for older adults across the full range of care settings &mdash; including serving as medical director of a primary care practice embedded in dozens of senior living communities. He built this resource to share what that experience has taught him, so people can care for a loved one with confidence instead of guesswork. The Geriatrician&rsquo;s Guide does not accept compensation of any kind from senior living operators, placement services, or referral networks.</p></div></div>
+{next && (<nav class="article__next" aria-label="Keep reading"><p class="article__next-label">Keep reading</p><a class="article__next-title" href={`/blog/${next.slug}`}>{next.title}</a><a class="textlink" href="/blog">All articles <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></nav>)}
+<aside class="post-disclaimer" aria-label="Medical disclaimer"><details><summary><span class="post-disclaimer__gist">For general education only. Not medical, legal, or financial advice.</span><span class="post-disclaimer__toggle">Read the full disclaimer</span></summary><div class="post-disclaimer__body"><h4>Informational and Educational Purposes Only</h4><p>The resources, articles, ebooks, and digital content provided by The Geriatrician&rsquo;s Guide LLC, Dr. Michael Genualdi, and any associated platforms are intended strictly for general informational and educational purposes. THIS CONTENT DOES NOT CONSTITUTE PROFESSIONAL MEDICAL, PSYCHOLOGICAL, LEGAL, OR FINANCIAL ADVICE.</p><h4>No Physician-Patient Relationship</h4><p>Accessing our website, reading our materials, or interacting with our digital tools does not create a physician-patient relationship between you and Dr. Michael Genualdi or The Geriatrician&rsquo;s Guide LLC. The insights shared on this platform reflect general professional experience and are not tailored to the unique clinical or logistical circumstances of your family or your loved ones.</p><h4>Consult Your Own Professionals</h4><p>You bear sole responsibility for your health and the healthcare decisions regarding your loved ones. YOU SHOULD ALWAYS CONSULT WITH YOUR OWN QUALIFIED HEALTHCARE PROVIDERS regarding any specific medical conditions, symptoms, treatments, or care transitions. Furthermore, navigating senior care often involves complex financial and legal considerations; we strongly advise consulting with licensed elder law attorneys, fee-only fiduciaries, or other qualified professionals before making any binding legal or financial decisions. Do not disregard professional medical advice or delay in seeking it because of something you have read on this website or in our materials.</p></div></details></aside>
+</div>
+</section>
+</div>
+<script is:inline>(function(){var b=document.querySelector('.theme-toggle');if(!b)return;var r=document.documentElement,l=b.querySelector('.theme-toggle__label');function s(){var d=r.dataset.reading==='dark';b.setAttribute('aria-pressed',d);l.textContent=d?'Light Mode':'Dark Mode';}s();b.addEventListener('click',function(){if(r.dataset.reading==='dark'){delete r.dataset.reading;try{localStorage.removeItem('tgg-reading-theme')}catch(e){}}else{r.dataset.reading='dark';try{localStorage.setItem('tgg-reading-theme','dark')}catch(e){}}s();});})();</script>
 </BaseLayout>

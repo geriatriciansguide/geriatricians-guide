@@ -1,9 +1,12 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import StructuredData from '../components/StructuredData.astro';
 import '../styles/global.css';
 
-const { title, description, noindex } = Astro.props;
+const { title, description, noindex, structuredDataType, article } = Astro.props;
+// Canonical form has no trailing slash (home stays "/").
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', Astro.site);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +16,8 @@ const { title, description, noindex } = Astro.props;
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <StructuredData type={structuredDataType} article={article} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,6 +39,7 @@ const { title, description, noindex } = Astro.props;
       }
     </script>
 
+    <slot name="head" />
     <link rel="icon" href="/favicon.ico" />
     <script is:inline src="/assets/email-validate.js" defer></script>
   </head>

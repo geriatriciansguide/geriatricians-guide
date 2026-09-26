@@ -10,24 +10,28 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 <BaseLayout title={title} description={description}>
-  <div class="wrap wrap--read section">
-    <div class="blog-head">
-      <h1>Articles</h1>
-      <p>Physician-written. Clinically reviewed. No facility money.</p>
-    </div>
-    <div class="article-list">
-      {posts.map((post) => {
-        const dateStr = new Date(post.data.pubDate).toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric',
-        });
-        return (
-          <article class="article-item">
-            <a class="article-title" href={`/blog/${post.slug}`}>{post.data.title}</a>
-            <p class="article-meta">Michael D. Genualdi, MD &middot; {dateStr}</p>
-            <p class="article-desc">{post.data.description}</p>
-          </article>
-        );
-      })}
-    </div>
-  </div>
+<script is:inline slot="head">try{if(localStorage.getItem("tgg-reading-theme")==="dark")document.documentElement.dataset.reading="dark"}catch(e){}</script>
+<div class="article bindex">
+<section class="article__sheet">
+<div class="article__titleblock">
+<div class="bindex__toprow"><p class="article__eyebrow">From the Guide</p><button class="theme-toggle" type="button" aria-pressed="false"><svg class="theme-toggle__moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg><svg class="theme-toggle__sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg><span class="theme-toggle__label">Dark Mode</span></button></div>
+<h1 class="article__title">Articles</h1>
+<p class="bindex__sub">A geriatrician&rsquo;s perspective and guidance on knowing when it&rsquo;s time, paying for care, hard conversations, and the medical decisions that come up along the way &mdash; drawn from years caring for older adults and the people who love them, so you know what&rsquo;s ahead.</p>
+</div>
+<div class="bindex__list">
+{posts.map((post) => {
+  const dateStr = new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  return (
+    <article class="bindex__item">
+      {post.data.eyebrow && <p class="bindex__eyebrow">{post.data.eyebrow}</p>}
+      <h2 class="bindex__title"><a href={`/blog/${post.slug}`}>{post.data.title}</a></h2>
+      <p class="bindex__desc">{post.data.description}</p>
+      <p class="bindex__meta">{dateStr}</p>
+    </article>
+  );
+})}
+</div>
+</section>
+</div>
+<script is:inline>(function(){var b=document.querySelector('.theme-toggle');if(!b)return;var r=document.documentElement,l=b.querySelector('.theme-toggle__label');function s(){var d=r.dataset.reading==='dark';b.setAttribute('aria-pressed',d);l.textContent=d?'Light Mode':'Dark Mode';}s();b.addEventListener('click',function(){if(r.dataset.reading==='dark'){delete r.dataset.reading;try{localStorage.removeItem('tgg-reading-theme')}catch(e){}}else{r.dataset.reading='dark';try{localStorage.setItem('tgg-reading-theme','dark')}catch(e){}}s();});})();</script>
 </BaseLayout>

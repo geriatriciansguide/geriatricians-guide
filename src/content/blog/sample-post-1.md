@@ -3,6 +3,7 @@ title: "Five Questions to Ask Before Signing an Assisted Living Contract"
 pubDate: 2026-07-07
 description: "Most families sign assisted living contracts without reading the arbitration clause. Here is what a geriatrician looks for before a family puts pen to paper."
 slug: "assisted-living-contract-questions"
+eyebrow: "Contracts · Money"
 lead: "The contract is where the brochure stops mattering. Here are the five things I read first — and why each one tells you more than the tour did."
 ---
 

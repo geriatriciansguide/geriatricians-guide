@@ -3,16 +3,24 @@ import { getCollection } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+  return posts.map((post, i) => {
+    // Keep reading: the post named in `related` if set, otherwise the next-older post (wraps to newest).
+    const related = post.data.related && posts.find((p) => p.slug === post.data.related);
+    const fallback = posts.length > 1 ? posts[(i + 1) % posts.length] : null;
+    const pick = related || fallback;
+    return {
+      params: { slug: post.slug },
+      props: { post, next: pick ? { slug: pick.slug, title: pick.data.title } : null },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, next } = Astro.props;
 const { Content } = await post.render();
 ---
-<BlogPostLayout frontmatter={post.data}>
+<BlogPostLayout frontmatter={post.data} next={next}>
   <Content />
 </BlogPostLayout>

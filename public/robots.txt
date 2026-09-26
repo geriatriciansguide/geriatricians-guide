@@ -1,0 +1,10 @@
+# The Geriatrician's Guide
+# All crawlers are allowed, including AI search and training crawlers
+# (OAI-SearchBot, GPTBot, ChatGPT-User, Claude-SearchBot, ClaudeBot,
+# PerplexityBot, Google-Extended, Applebot-Extended, CCBot).
+# Nothing paid is hosted on this site; the book is delivered through checkout.
+
+User-agent: *
+Disallow: /admin/
+
+Sitemap: https://www.geriatriciansguide.com/sitemap-index.xml

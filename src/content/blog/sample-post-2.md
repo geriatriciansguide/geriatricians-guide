@@ -3,6 +3,7 @@ title: "The One Staffing Question Nobody Asks on a Memory Care Tour"
 pubDate: 2026-06-23
 description: "What is posted on the wall and what is staffed at 11 PM on a Tuesday are two different numbers. A geriatrician explains how to get the real one."
 slug: "memory-care-staffing-question"
+eyebrow: "Memory Care · Tour"
 lead: "A memory care unit can look immaculate at 11 AM and be dangerously thin at 11 PM. The gap between those two pictures is the whole decision."
 ---
 

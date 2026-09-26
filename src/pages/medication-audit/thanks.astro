@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = "Here's Your Medication Audit Kit · The Geriatrician's Guide";
+const description = "Your Medication Audit Kit is ready. Download both printable tools below.";
+---
+<BaseLayout title={title} description={description} noindex={true}>
+  <div class="wrap section tk" data-screen-label="Medication Audit Kit thank-you">
+
+    <p class="eyebrow">All Set</p>
+    <h1>Your Medication Audit Kit is ready.</h1>
+    <div class="tk__rule"></div>
+
+    <p class="tk__body">Download and print both tools below.</p>
+
+    <p class="tk__dl-label">The Kit</p>
+    <div class="tk__dl-sub-row">
+      <p class="tk__dl-sub">Read the Audit before the next appointment, fill out the List, and bring both with you.</p>
+      <button class="tk__dl-all" id="tk-download-all" type="button">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        Download both
+      </button>
+    </div>
+
+    <div class="tk__downloads">
+      <a class="tk__dl tk__dl--terra" href="/downloads/medication-audit.pdf" download="The Medication Audit.pdf">
+        <span class="tk__dl-num">1</span>
+        <span>
+          <span class="tk__dl-name">The Medication Audit</span>
+          <span class="tk__dl-meta">Nine steps, from building the full list to deciding how often to run it again.</span>
+        </span>
+        <span class="tk__dl-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Download</span>
+      </a>
+      <a class="tk__dl tk__dl--gold" href="/downloads/medication-list.pdf" download="The Medication List.pdf">
+        <span class="tk__dl-num">2</span>
+        <span>
+          <span class="tk__dl-name">The Medication List</span>
+          <span class="tk__dl-meta">Every medication, dose, and prescriber on one page. Update it whenever something changes.</span>
+        </span>
+        <span class="tk__dl-action"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Download</span>
+      </a>
+    </div>
+
+    <div class="tk__spam">
+      <p>Confirm your email in the message from <strong>dr.genualdi@geriatriciansguide.com</strong> and you&rsquo;ll get links to both tools there too. I&rsquo;ll also follow up on what senior care actually costs and where Medicare stops paying. Not there in a few minutes? Check your spam or promotions folder.</p>
+    </div>
+
+    <div class="tk__next">
+      <div class="tk__next-portrait">
+        <img src="/images/author-genualdi.png" alt="Michael D. Genualdi, MD" width="928" height="1152" />
+      </div>
+      <div class="tk__next-text">
+        <p>Chapter 25 of <em>The Long Road</em> goes deeper into the reasoning behind every step of the Audit. The rest of the book covers what comes before and after it: whether it&rsquo;s time to make a move, what care actually costs, how to choose well, and what to watch for once your loved one has moved in.</p>
+        <a class="btn btn--primary" href="/the-long-road">Explore The Long Road <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      </div>
+    </div>
+
+    <!-- Dev note: this page is unlisted (noindex, no nav link, keep out of the sitemap);
+         it's reachable only via the Kit redirect and the email. -->
+
+  </div>
+</BaseLayout>
+
+<script>
+  const allBtn = document.getElementById('tk-download-all');
+  if (allBtn) {
+    allBtn.addEventListener('click', () => {
+      const links = document.querySelectorAll('.tk__downloads .tk__dl');
+      links.forEach((a, i) => {
+        setTimeout(() => {
+          const temp = document.createElement('a');
+          temp.href = a.getAttribute('href');
+          temp.setAttribute('download', a.getAttribute('download') || '');
+          document.body.appendChild(temp);
+          temp.click();
+          document.body.removeChild(temp);
+        }, i * 350);
+      });
+    });
+  }
+</script>
+
+<style>
+  .tk { max-width: 800px; }
+  .tk .eyebrow { font-size: 12.5px; letter-spacing: 0.18em; }
+  .tk h1 {
+    font-family: var(--font-serif); font-weight: 500;
+    font-size: clamp(38px, 6.5vw, 56px); line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin-top: 14px;
+  }
+  .tk__rule { width: 96px; height: var(--rule-terra); background: var(--terra); margin: 26px 0 0; }
+  .tk__lede p {
+    font-family: var(--font-serif); font-style: italic; font-weight: 400;
+    font-size: clamp(19px, 2.4vw, 22px); line-height: 1.55; color: var(--ink);
+    margin-top: 28px; text-wrap: pretty;
+  }
+  .tk__body { font-family: var(--font-sans); font-weight: 400; font-size: 17px; color: var(--ink); line-height: 1.8; margin-top: 18px; text-wrap: pretty; }
+  .tk__body b { font-weight: 600; }
+  .tk__dl-label {
+    font-family: var(--font-sans); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.16em; font-size: 13px; color: var(--terra);
+    display: flex; align-items: center; gap: 16px; margin: 48px 0 8px;
+  }
+  .tk__dl-label::after { content: ""; flex: 1; height: 1px; background: var(--hairline); }
+  .tk__dl-sub-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tk__dl-sub { font-family: var(--font-sans); font-weight: 400; font-size: 17px; color: var(--ink); line-height: 1.8; text-wrap: pretty; margin: 0; flex: 1; min-width: 240px; }
+  .tk__dl-all {
+    flex: none; display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; border: 1.5px solid var(--midnight); border-radius: var(--radius);
+    padding: 11px 18px; cursor: pointer; white-space: nowrap;
+    font-family: var(--font-sans); font-weight: 600; font-size: 14px; color: var(--midnight);
+    transition: background .15s ease, color .15s ease;
+  }
+  .tk__dl-all:hover { background: var(--midnight); color: var(--paper); }
+  .tk__dl-all svg { display: block; }
+  .tk__downloads { display: flex; flex-direction: column; gap: 12px; }
+  .tk__dl {
+    display: grid; grid-template-columns: 44px 1fr auto; gap: 20px; align-items: center;
+    background: var(--paper); border: 1px solid var(--hairline);
+    outline: 1.5px solid transparent; outline-offset: -2px;
+    border-radius: 0 var(--radius) var(--radius) 0; padding: 20px 24px; text-decoration: none;
+    transition: outline-color .15s ease, box-shadow .15s ease;
+  }
+  .tk__dl:hover { box-shadow: var(--shadow-card); text-decoration: none; }
+  .tk__dl--terra { border-left: 3px solid var(--terra); background: var(--terra-tint); }
+  .tk__dl--terra:hover { outline-color: var(--terra); }
+  .tk__dl--gold { border-left: 3px solid var(--golden); background: rgba(196,150,42,0.07); }
+  .tk__dl--gold:hover { outline-color: var(--golden); }
+  .tk__dl--midnight { border-left: 3px solid var(--midnight); background: var(--midnight-tint); }
+  .tk__dl--midnight:hover { outline-color: var(--midnight); }
+  .tk__dl-num {
+    width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-serif); font-weight: 500; font-size: 19px; color: var(--paper);
+  }
+  .tk__dl--terra .tk__dl-num { background: var(--terra); }
+  .tk__dl--gold .tk__dl-num { background: var(--golden); }
+  .tk__dl--midnight .tk__dl-num { background: var(--midnight); }
+  .tk__dl-name { font-family: var(--font-serif); font-weight: 500; font-size: 19px; color: var(--ink); display: block; }
+  .tk__dl-meta { font-family: var(--font-sans); font-weight: 400; font-size: 14px; color: var(--muted); margin-top: 4px; line-height: 1.5; display: block; }
+  .tk__dl-action { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-sans); font-weight: 600; font-size: 13px; letter-spacing: 0.02em; color: var(--ink); border-bottom: 2px solid var(--terra); padding-bottom: 3px; white-space: nowrap; }
+  .tk__dl-action svg { display: block; color: var(--terra); }
+  .tk__spam { background: var(--midnight-tint); border-left: 2px solid var(--faint); border-radius: 0 var(--radius) var(--radius) 0; padding: 18px 22px; margin-top: 32px; }
+  .tk__spam p { font-family: var(--font-sans); font-weight: 400; font-size: 15px; color: var(--ink); line-height: 1.7; margin: 0; }
+  .tk__next { margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--hairline); display: grid; grid-template-columns: 120px 1fr; gap: 26px; align-items: start; }
+  .tk__next-portrait img { width: 100%; height: auto; border-radius: var(--radius); display: block; }
+  .tk__next-text p { font-family: var(--font-sans); font-weight: 400; font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; text-wrap: pretty; }
+  @media (max-width: 500px) {
+    .tk__next { grid-template-columns: 1fr; }
+    .tk__next-portrait { width: 90px; }
+  }
+  .tk-kit-placeholder {
+    border: 1px dashed var(--hairline); border-radius: var(--radius); background: var(--midnight-tint);
+    padding: 14px 18px; margin-top: 20px;
+    font-family: var(--font-sans); font-size: 12px; font-weight: 400; font-style: italic; color: var(--muted);
+  }
+  @media (max-width: 620px) {
+    .tk__dl { grid-template-columns: 44px 1fr; }
+    .tk__dl-action { grid-column: 2; }
+  }
+</style>

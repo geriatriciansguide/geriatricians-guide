@@ -1,0 +1,157 @@
+---
+/**
+ * StructuredData.astro
+ * JSON-LD entity graph for The Geriatrician's Guide.
+ *
+ * Usage:
+ *   BaseLayout.astro (every page):   <StructuredData />
+ *   products.astro:                  <StructuredData type="book" />
+ *   blog post layout:                <StructuredData type="article" article={{ ... }} />
+ *
+ * Every page emits Person + Organization + WebSite, linked by @id,
+ * so search and AI systems resolve one consistent author and publisher.
+ */
+
+interface ArticleProps {
+  title: string;
+  description?: string;
+  datePublished: string; // ISO 8601, e.g. "2026-10-05"
+  dateModified?: string; // ISO 8601; update whenever content is revised
+  image?: string;        // absolute URL
+}
+
+interface Props {
+  type?: 'site' | 'book' | 'article';
+  article?: ArticleProps;
+}
+
+const { type = 'site', article } = Astro.props;
+
+const SITE = 'https://www.geriatriciansguide.com';
+const pageUrl = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', SITE).href;
+
+const PERSON_ID = `${SITE}/#author`;
+const ORG_ID = `${SITE}/#organization`;
+const SITE_ID = `${SITE}/#website`;
+const BOOK_ID = `${SITE}/#the-long-road`;
+
+const person = {
+  '@type': 'Person',
+  '@id': PERSON_ID,
+  name: 'Michael D. Genualdi, MD',
+  givenName: 'Michael',
+  familyName: 'Genualdi',
+  honorificSuffix: 'MD',
+  jobTitle: 'Geriatrician',
+  url: `${SITE}/about`,
+  image: `${SITE}/images/author-genualdi.png`,
+  hasCredential: [
+    {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Board certification',
+      name: 'Board certification in Geriatric Medicine',
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Board certification',
+      name: 'Board certification in Internal Medicine',
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Residency',
+      name: 'Internal Medicine Residency, Stanford University Hospital',
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Fellowship',
+      name: 'Geriatric Medicine Fellowship, Stanford University Hospital',
+    },
+  ],
+  alumniOf: { '@type': 'Hospital', name: 'Stanford University Hospital' },
+  knowsAbout: [
+    'Geriatric medicine',
+    'Assisted living',
+    'Memory care',
+    'Skilled nursing',
+    'Dementia care',
+    'Medicare and Medicaid coverage for long-term care',
+    'Hospice and palliative care',
+    'Advance care planning',
+  ],
+  sameAs: [
+    'https://npiprofile.com/npi/1124482823',
+    'https://www.doximity.com/pub/michael-genualdi-md',
+    'https://www.linkedin.com/in/mikegenualdi/',
+    'https://www.instagram.com/geriatriciansguide/',
+  ],
+  worksFor: { '@id': ORG_ID },
+};
+
+const organization = {
+  '@type': 'Organization',
+  '@id': ORG_ID,
+  name: "The Geriatrician's Guide",
+  legalName: "The Geriatrician's Guide, LLC",
+  url: SITE,
+  founder: { '@id': PERSON_ID },
+  logo: `${SITE}/images/logo-wordmark-512.png`,
+  sameAs: ['https://www.instagram.com/geriatriciansguide/'],
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': SITE_ID,
+  name: "The Geriatrician's Guide",
+  url: SITE,
+  publisher: { '@id': ORG_ID },
+  inLanguage: 'en-US',
+};
+
+const book = {
+  '@type': 'Book',
+  '@id': BOOK_ID,
+  name: 'The Long Road',
+  alternativeHeadline: "A Geriatrician's Complete Guide to Senior Care Decisions",
+  author: { '@id': PERSON_ID },
+  publisher: { '@id': ORG_ID },
+  bookFormat: 'https://schema.org/EBook',
+  bookEdition: 'First Edition',
+  datePublished: '2026-07',
+  inLanguage: 'en-US',
+  url: `${SITE}/the-long-road`,
+  description:
+    'Forty-one chapters covering senior care decisions from the first signs that living at home is no longer safe through choosing a community, paying for care, dementia, and end-of-life planning. Written by a board-certified geriatrician with no financial ties to senior living operators.',
+  offers: {
+    '@type': 'Offer',
+    price: '97.00',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: `${SITE}/the-long-road`,
+    seller: { '@id': ORG_ID },
+  },
+};
+
+const graph: Record<string, unknown>[] = [person, organization, website];
+
+if (type === 'book') graph.push(book);
+
+if (type === 'article' && article) {
+  graph.push({
+    '@type': 'Article',
+    '@id': `${pageUrl}#article`,
+    headline: article.title,
+    ...(article.description ? { description: article.description } : {}),
+    datePublished: article.datePublished,
+    dateModified: article.dateModified ?? article.datePublished,
+    ...(article.image ? { image: article.image } : {}),
+    author: { '@id': PERSON_ID },
+    publisher: { '@id': ORG_ID },
+    isPartOf: { '@id': SITE_ID },
+    mainEntityOfPage: pageUrl,
+    inLanguage: 'en-US',
+  });
+}
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+---
+<script type="application/ld+json" set:html={jsonLd} />
