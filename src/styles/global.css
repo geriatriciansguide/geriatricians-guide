@@ -4,10 +4,9 @@
    Never hardcode hex outside :root — use the variables.
    ============================================================ */
 
-/* Fonts are loaded via <link> to Google Fonts in src/layouts/BaseLayout.astro
-   (Lora 400/500/600 + italics, Source Sans 3 300/400/600). The self-hosted
-   fonts/fonts.css from the design system is NOT used here — don't re-add the
-   @import unless you also commit public/fonts/. */
+/* Fonts are self-hosted: public/fonts/ (Lora 400/500/600 + italics, Source Sans 3
+   300/400/600, woff2), linked from src/layouts/BaseLayout.astro. No Google Fonts —
+   keeps third-party requests off every page (legal review, Oct 2026). */
 
 :root {
   /* ---- Brand palette (the only four brand colors) ---- */
@@ -1046,3 +1045,60 @@ html{scroll-behavior:smooth}
 .bindex .article__titleblock{padding-top:clamp(36px,5vw,56px);padding-bottom:clamp(36px,4.5vw,48px)}
 [data-reading="dark"] .article .article__titleblock{background:rgba(245,240,230,.07)}
 .bindex .article__titleblock .bindex__sub{font-style:normal}
+
+/* Dark mode: side hairlines on the reading sheet, in the header-card tone */
+[data-reading="dark"] .article__sheet{border-left:1px solid rgba(245,240,230,.07);border-right:1px solid rgba(245,240,230,.07)}
+@media (max-width:760px){[data-reading="dark"] .article__sheet{border-left:0;border-right:0}}
+
+/* Blog: in-post lead-magnet CTA box (26 Sep 2026) */
+.post-cta{margin:2.4em 0;padding:28px 30px;background:var(--midnight);color:var(--fog);border-top:4px solid var(--terra);border-radius:2px}
+.article .post-body .post-cta p{color:var(--fog);margin:0 0 1em}
+.article .post-body .post-cta p:last-child{margin:0}
+.article .post-body .post-cta strong{color:var(--golden)}
+html .article .post-body .post-cta a,html[data-reading="dark"] .article .post-body .post-cta a{color:var(--golden);text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.article .post-body .post-cta .post-cta__title{font-family:var(--font-serif);font-weight:500;font-size:1.45em;line-height:1.3;letter-spacing:-.01em;color:var(--fog);margin:0 0 .7em}
+[data-reading="dark"] .post-cta{background:rgba(245,240,230,.06)}
+
+/* Blog: short Terracotta rule above each section heading (4px, matches the index header rule) */
+.article .post-body h2{margin-top:22px}.article .post-body h2::before{content:"";display:block;width:40px;height:4px;background:var(--terra);margin:0 0 22px}
+
+/* Blog: drop cap + small-caps first line on the opening paragraph of every post */
+.article .post-body>p:first-child:not(.lead)::first-letter,.article .post-body>.lead+p::first-letter{float:left;font-family:var(--font-serif);font-weight:500;font-size:5.6em;line-height:.8;margin:.07em .09em 0 -.02em;color:var(--ink)}
+.article .post-body>p:first-child:not(.lead)::first-line,.article .post-body>.lead+p::first-line{font-variant:small-caps;letter-spacing:.06em;font-weight:600}
+[data-reading="dark"] .article .post-body>p:first-child:not(.lead)::first-letter,[data-reading="dark"] .article .post-body>.lead+p::first-letter{color:var(--fog)}
+
+/* Blog: slim one-line byline (photo + credentials live in the author card at the end) */
+.article__byline{margin-top:20px}
+.article__byline .article__meta{margin:0;font-size:15px;line-height:1.6}
+.article__byline .article__author{font-size:inherit}
+
+/* Blog: in-text links in Terracotta (light mode) — matches legal pages; dark mode Golden, CTA box Golden */
+.article .post-body a{color:var(--terra);text-decoration:none;border-bottom:1px solid rgba(168,85,53,.4)}
+.article .post-body a:hover{border-bottom-color:var(--terra);text-decoration:none}
+[data-reading="dark"] .article .post-body a{color:var(--golden);border-bottom-color:rgba(196,150,42,.45)}[data-reading="dark"] .article .post-body a:hover{border-bottom-color:var(--golden)}
+.article .post-body .post-cta a{border-bottom:0}
+
+/* Clickwrap notice: sits directly below every buy button and Kit sign-up form. Wording must match the button label. */
+.clickwrap{font-family:var(--font-sans);font-weight:400;font-style:normal;font-size:15px;line-height:1.6;color:var(--muted);max-width:480px;margin:12px 0 0;text-wrap:pretty}
+.clickwrap a{color:var(--terra);text-decoration:underline;text-underline-offset:2px}
+.clickwrap--dark{color:rgba(245,240,230,0.85)}
+.clickwrap--dark a{color:var(--golden)}
+.free-chapter .clickwrap{margin:12px auto 0}
+.free-chapter p.clickwrap{font-family:var(--font-sans);font-weight:400;font-style:normal;font-size:15px;line-height:1.6;letter-spacing:normal;color:rgba(245,240,230,0.85);max-width:480px;margin:12px auto 0}
+.free-chapter .clickwrap a{margin-top:0;display:inline}
+.buy-box{max-width:440px;margin:28px 0 0}
+.buy-box .product-hero__price{flex-direction:row;align-items:baseline;gap:12px;margin:0 0 16px;font-size:30px;color:var(--ink)}
+.buy-box .product-hero__price-note{text-transform:none;letter-spacing:0;font-size:15px;color:var(--muted)}
+.buy-terms{display:flex;flex-direction:column;gap:8px;margin:22px 0 0;padding:16px 0;border-top:1px solid rgba(26,44,64,0.12);border-bottom:1px solid rgba(26,44,64,0.12);font-family:var(--font-sans);font-weight:400;font-size:14px;line-height:1.6;color:var(--muted);text-wrap:pretty}
+.buy-terms p{margin:0}
+.buy-terms a{color:inherit;text-decoration:underline;text-decoration-color:rgba(26,44,64,0.3);text-underline-offset:2px}.buy-terms a:hover{color:var(--ink);text-decoration-color:var(--terra)}
+
+/* Disclaimer emphasis (15 Oct 2026) */
+.post-disclaimer__body strong{font-weight:600;color:var(--ink)}
+[data-reading="dark"] .article .post-disclaimer__body strong{color:var(--fog)}
+
+/* Dark mode: deeper wings so the reading sheet stands apart (15 Oct 2026) */
+[data-reading="dark"] .article{background:#122030}
+
+/* Footer credential: keep name + trust line on one row now the board name is longer (30 Oct 2026) */
+@media (min-width:821px){.footer-credential{flex-wrap:nowrap;align-items:center}.footer-credential__id{flex:0 1 auto;min-width:0}.footer-credential__name{max-width:430px;text-wrap:balance}.footer-credential__trust{flex-shrink:0}}

@@ -50,7 +50,16 @@ collections:
         date_format: "YYYY-MM-DD"
         time_format: false
         picker_utc: true
-        hint: "The date shown in the byline."
+        hint: "The date shown in the byline. Also sets the order on the Articles page."
+
+      - name: "updated"
+        label: "Last updated"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: true
+        required: false
+        hint: "Optional. If set, the byline shows “Last updated Month Year” instead of the publish date."
 
       - name: "description"
         label: "Description"

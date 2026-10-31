@@ -19,9 +19,9 @@ const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', Astro.s
     <link rel="canonical" href={canonical} />
     <StructuredData type={structuredDataType} article={article} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="preload" href="/fonts/SourceSans3-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Lora-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
 
     <!-- PLAUSIBLE SCRIPT TAG HERE -->
 

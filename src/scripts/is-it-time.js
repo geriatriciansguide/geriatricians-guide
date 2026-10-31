@@ -293,6 +293,7 @@ function screenEmail() {
           <input type="email" name="email_address" placeholder="you@email.com" aria-label="Email address" required>
           <button type="submit">Show my results ${ICON.arrowRight}</button>
         </form>
+        <p class="clickwrap clickwrap--dark">By clicking Show my results, you agree to the <a href="${TERMS_HREF}">Terms of Use</a> and <a href="${TERMS_HREF.replace('terms','privacy')}">Privacy Policy</a>.</p>
         <p class="iit-mailme__fine">We never sell your personal information.</p>
       </div>
     </div>

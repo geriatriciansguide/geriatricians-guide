@@ -20,7 +20,9 @@ const posts = (await getCollection('blog')).sort(
 </div>
 <div class="bindex__list">
 {posts.map((post) => {
-  const dateStr = new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+  const dateStr = post.data.updated
+    ? `Last updated ${new Date(post.data.updated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' })}`
+    : new Date(post.data.pubDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
   return (
     <article class="bindex__item">
       {post.data.eyebrow && <p class="bindex__eyebrow">{post.data.eyebrow}</p>}

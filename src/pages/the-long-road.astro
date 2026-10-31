@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
 const title = "The Long Road — The Geriatrician's Guide";
 const description = "A guide to senior living decisions written by a Stanford-trained geriatrician. One book for all stages.";
 ---
@@ -12,11 +11,16 @@ const description = "A guide to senior living decisions written by a Stanford-tr
         <p class="eyebrow">Flagship Guide</p>
         <h1 class="product-hero__title">The Long Road</h1>
         <p class="product-hero__sub">The guidance a geriatrician gives when no one&rsquo;s paying him to steer you &mdash; from the first worrying signs through touring, memory care, and hospice. What to ask, what each choice really costs, and how to decide with confidence instead of guilt.</p>
-        <p class="product-hero__price">$97 <span class="product-hero__price-note">one-time payment</span></p>
-        <!-- LEMON SQUEEZY PRODUCT URL HERE -->
-        <a class="btn btn--accent" href="#">Get Instant Access
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+        <div class="buy-box">
+          <p class="product-hero__price">$97 <span class="product-hero__price-note">one-time payment</span></p>
+          <a class="btn btn--accent" href="https://geriatriciansguide.lemonsqueezy.com/checkout/buy/4c504e54-2b51-48a7-9fd5-b96570ded12d">Buy Now
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <div class="buy-terms">
+            <p>By clicking Buy Now, you agree to the <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.</p>
+            <p>All sales final. No refunds for digital goods. By purchasing, you represent that you are at least 18 years old.</p>
+          </div>
+        </div>
       </div>
       <figure class="product-hero__figure">
         <img src="/images/the-long-road-cover.png" alt="The Long Road — A Geriatrician's Complete Guide to Senior Care Decisions, by Michael D. Genualdi, MD" width="2474" height="3200" />
@@ -94,13 +98,14 @@ const description = "A guide to senior living decisions written by a Stanford-tr
     </ul>
 
     <div class="free-chapter" style="margin-top:48px">
-      <p>Not sure yet? Read a free chapter before you buy.</p>
+      <p>Not sure yet?<br>Read a free chapter before you buy.</p>
       <p class="fc__sub">Enter your email, confirm it, and the chapter arrives in your inbox.<br>No spam, no placement calls. Unsubscribe anytime.</p>
       <!-- Kit form 9942260 — posts to Kit, which tags the subscriber and fires the incentive email with the chapter PDF. -->
       <form class="email-form email-form--dark" id="fc-form" action="https://app.kit.com/forms/9942260/subscriptions" method="post">
         <input type="email" name="email_address" placeholder="you@email.com" aria-label="Email address" required>
-        <button type="submit">Send me the chapter</button>
+        <button type="submit">Download</button>
       </form>
+      <p class="clickwrap clickwrap--dark">By clicking Download, you agree to the <a href="/terms">Terms of Use</a> and <a href="/privacy">Privacy Policy</a>.</p>
       <p class="fc__fine" id="fc-fine">We never sell your personal information.</p>
       <p class="fc__done" id="fc-done" hidden>Check your inbox &mdash; click the confirmation link and the chapter is on its way.</p>
     </div>
