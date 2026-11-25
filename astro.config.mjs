@@ -23,5 +23,7 @@ export default defineConfig({
     '/is-it-time-tool': '/is-it-time',
     /* The single product page moved from /products to /the-long-road. */
     '/products': '/the-long-road',
+    /* Contact page retired 25 Nov 2026; contact is now a mailto link in the header and footer. */
+    '/contact': '/',
   },
 });
