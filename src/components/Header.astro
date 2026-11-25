@@ -4,7 +4,7 @@ const links = [
   { label: 'About', href: '/about' },
   { label: 'The Long Road', href: '/the-long-road' },
   { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: 'mailto:dr.genualdi@geriatriciansguide.com' },
+  { label: 'Contact', href: '#', mail: true },
 ];
 // Normalize current path (strip trailing slash) for active-link matching
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -26,7 +26,9 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
             ? path === '/'
             : path === l.href || path.startsWith(l.href + '/');
         return (
-          <a href={l.href} aria-current={active ? 'page' : undefined}>{l.label}</a>
+          l.mail
+            ? <a href="#" data-mu="dr.genualdi" data-md="geriatriciansguide.com">{l.label}</a>
+            : <a href={l.href} aria-current={active ? 'page' : undefined}>{l.label}</a>
         );
       })}
     </nav>
